@@ -92,7 +92,9 @@ de Clerk.
 - El `DropdownUserProfile` original traía tres ítems muertos sin `href`: "Changelog", "Documentation" y
   **"Join Slack community"**, residuo de la comunidad del template original. El grep de M2 no los cazó
   porque no contienen la palabra "tremor". Se eliminaron aquí.
-- `siteConfig.sampleUser` sigue existiendo y lo consume `settings/page.tsx`, que es una página estática de
-  demostración. La sesión real ya no lo usa.
+- `siteConfig.sampleUser` sigue existiendo, pero **ningún componente lo consume**. Solo declara la credencial
+  del revisor, y `tests/demo-data.test.ts` la usa como contrato contra el primer usuario del dataset.
+  (En M6 se corrigió `settings/page.tsx`, que sí lo renderizaba y mostraba la identidad de demo al usuario
+  logueado.)
 - **La `sk_test` se compartió por chat.** Antes de la entrega hay que **rotarla en Clerk** y redactarla en
   `docs/claude-evidence/PROMPTS.md`, o el secreto queda publicado en un repo público.
