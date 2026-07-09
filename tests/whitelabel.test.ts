@@ -39,6 +39,7 @@ describe("whitelabel sweep", () => {
     "blocks.tremor",
     "get full template",
     "tremorplaceholder",
+    "template-dashboard-oss",
   ]
 
   it.each(forbidden)("has no trace of %s in src/", (needle) => {

@@ -6,7 +6,7 @@
 
 A whitelabel analytics dashboard with a public landing page and working authentication.
 
-[Live demo](https://template-dashboard-oss-rose.vercel.app) · [Health check](https://template-dashboard-oss-rose.vercel.app/api/health)
+[Live demo](https://nova-analytics-dashboard.vercel.app) · [Health check](https://nova-analytics-dashboard.vercel.app/api/health)
 
 </div>
 
@@ -61,6 +61,7 @@ them the app still builds and the landing page renders, but sign-in and sign-up 
 | `NEXT_PUBLIC_CLERK_SIGN_UP_URL`                   | no       | Where Clerk mounts sign-up.                                           |
 | `NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL` | no       | Landing spot after sign-in, when the request carries no `redirect_url`. |
 | `NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL` | no       | The same, after sign-up.                                              |
+| `NEXT_PUBLIC_SITE_URL`                            | no       | Public origin for `metadataBase` and the Open Graph tags. Defaults to the brand domain. Set it per environment so preview deployments do not advertise the production origin. |
 
 `.env*.local` is gitignored. No secret is committed to this repository.
 
@@ -78,14 +79,14 @@ pnpm test:ci             # jest with coverage, for CI
 
 ## Testing
 
-58 integration tests across 8 suites, run with `pnpm test`. They do not chase a coverage number. Each one
+60 integration tests across 8 suites, run with `pnpm test`. They do not chase a coverage number. Each one
 guards an invariant this project can plausibly break.
 
 | Suite                  | What it protects                                                                                                                                                       |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `whitelabel.test.ts`   | No trace of the original product reaches the UI. Scans every `.ts` and `.tsx` file under `src/`, allowing only the upstream attribution comments Apache 2.0 requires. |
 | `chart-colors.test.ts` | `chartColors` exposes `brand` first, and `getColorClassName` still falls back to gray on an unknown key.                                                                |
-| `site-config.test.ts`  | The brand config stays the single source of truth, and `url` points at a real https deployment.                                                                         |
+| `site-config.test.ts`  | The brand config stays the single source of truth, and the public origin is a real https URL that carries no trace of the upstream template.                            |
 | `demo-data.test.ts`    | Every demo identity is unique and lives on the Nova domain.                                                                                                            |
 | `brand-logo.test.tsx`  | A caller can override the wordmark color.                                                                                                                              |
 | `landing.test.tsx`     | The signed-out landing routes to sign-in and sign-up, and spends its one white pill in the hero.                                                                        |

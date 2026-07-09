@@ -11,6 +11,10 @@ describe("brand single source of truth", () => {
     expect(siteConfig.url).not.toMatch(/yoururl|localhost|example\.com/)
   })
 
+  it("keeps the upstream template name out of the public origin", () => {
+    expect(siteConfig.url).not.toMatch(/template-dashboard-oss|tremor/i)
+  })
+
   it("uses Nova addresses for support and the sample user", () => {
     expect(siteConfig.supportEmail).toBe("hello@novaanalytics.io")
     expect(siteConfig.sampleUser.email).toBe("admin@novaanalytics.io")
