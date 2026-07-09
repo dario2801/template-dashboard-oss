@@ -1,139 +1,139 @@
 # M2 — Whitelabel sweep
 
-Objetivo: cero rastros visibles del producto original. Los cuatro obligatorios del brief
-(**logo, favicon, application name, footer credits**) quedan cubiertos.
+Objective: zero visible traces of the original product. The four mandatory ones from the brief
+(**logo, favicon, application name, footer credits**) are covered.
 
-Rama: `feat/m2-whitelabel-sweep` (desde `main`, que ya contenía M1 vía el merge de PR #1).
+Branch: `feat/m2-whitelabel-sweep` (from `main`, which already contained M1 via the merge of PR #1).
 
 ---
 
-## 1. Qué se hizo
+## 1. What was done
 
-### 1.1 Identidad y metadata
+### 1.1 Identity and metadata
 
-- `src/app/layout.tsx`: `metadataBase` pasa de `https://yoururl.com` a `new URL(siteConfig.url)`.
-  `authors` y `creator` dejan de ser `"yourname"`. `twitter.title` deja de ser `"Tremor OSS Dashboard"`,
-  `twitter.creator` deja de ser `"@tremorlabs"`. Se añadió `twitter.description` y `keywords`.
-  Se eliminó el bloque `icons: { icon: "/favicon.ico" }` para que Next 14 auto-cablee `src/app/icon.svg`.
-- `package.json`: `name` pasa de `template-dashboard-open-source-version` a `nova-analytics`.
-  Ninguna dependencia tocada. `pnpm-lock.yaml` intacto.
-- `README.md`: reescrito para Nova Analytics. Se retiró el banner que embebía `public/og_github.jpg`
-  (ese archivo se borra en este milestone, dejarlo habría sido una imagen rota). Se conserva la
-  atribución Apache 2.0 al template original, que es correcta y exigida por la licencia.
+- `src/app/layout.tsx`: `metadataBase` changes from `https://yoururl.com` to `new URL(siteConfig.url)`.
+  `authors` and `creator` are no longer `"yourname"`. `twitter.title` is no longer `"Tremor OSS Dashboard"`,
+  `twitter.creator` is no longer `"@tremorlabs"`. Added `twitter.description` and `keywords`.
+  Removed the `icons: { icon: "/favicon.ico" }` block so Next 14 auto-wires `src/app/icon.svg`.
+- `package.json`: `name` changes from `template-dashboard-open-source-version` to `nova-analytics`.
+  No dependency touched. `pnpm-lock.yaml` intact.
+- `README.md`: rewritten for Nova Analytics. Removed the banner that embedded `public/og_github.jpg`
+  (that file is deleted in this milestone, keeping it would have been a broken image). The Apache 2.0
+  attribution to the original template is kept, which is correct and required by the license.
 
-### 1.2 Fuente única de identidad
+### 1.2 Single source of identity
 
 `src/app/siteConfig.ts`:
 
-- `sampleUser` pasa de `string` a `{ name, initials, email }`. Lo consumen `UserProfile.tsx`,
-  `DropdownUserProfile.tsx` y `settings/page.tsx`, que antes hardcodeaban `"Emma Stone"` / `"ES"` /
+- `sampleUser` changes from `string` to `{ name, initials, email }`. It is consumed by `UserProfile.tsx`,
+  `DropdownUserProfile.tsx` and `settings/page.tsx`, which previously hardcoded `"Emma Stone"` / `"ES"` /
   `"emma.stone@acme.com"`.
-- **`externalLink` eliminado.** Era deuda técnica de M1: apuntaba a `/overview` solo para no romper
-  `tsc` tras quitar la URL de Tremor. Su único consumidor eran las dos páginas paywall, ahora reescritas.
+- **`externalLink` removed.** It was technical debt from M1: it pointed to `/overview` only so as not to break
+  `tsc` after removing the Tremor URL. Its only consumer were the two paywall pages, now rewritten.
 
-### 1.3 Páginas placeholder
+### 1.3 Placeholder pages
 
-Decisión de M2 (la sección 6.4 del handoff la dejaba abierta): **contenido real**, no empty state.
+M2 decision (section 6.4 of the handoff left it open): **real content**, not an empty state.
 
-- `src/app/settings/page.tsx`: página de ajustes real. Secciones Profile (lee de `siteConfig.sampleUser`),
-  Notifications (tres toggles accesibles con `role="switch"` y `aria-checked`), Workspace y Support
-  (mailto a `siteConfig.supportEmail`). El `<h1>` lo aporta `settings/layout.tsx`, no se duplica.
-- `src/app/(main)/details/page.tsx`: tabla real de miembros del workspace sobre los datos mock de
-  `src/data/data.ts`, con `Badge` para el rol.
-- `src/components/ui/icons/TremorPlaceholder.tsx`: **eliminado**. Nada más lo importaba.
-- Desaparece el CTA "Get full template here" y con él el link muerto que la review había marcado.
+- `src/app/settings/page.tsx`: a real settings page. Sections Profile (reads from `siteConfig.sampleUser`),
+  Notifications (three accessible toggles with `role="switch"` and `aria-checked`), Workspace and Support
+  (mailto to `siteConfig.supportEmail`). The `<h1>` is provided by `settings/layout.tsx`, it is not duplicated.
+- `src/app/(main)/details/page.tsx`: a real table of workspace members over the mock data in
+  `src/data/data.ts`, with `Badge` for the role.
+- `src/components/ui/icons/TremorPlaceholder.tsx`: **removed**. Nothing else imported it.
+- The "Get full template here" CTA disappears, and with it the dead link the review had flagged.
 
 ### 1.4 Color: `indigo` -> `brand`
 
-Migración uno a uno, preservando el número de shade (`indigo-600` -> `brand-600`).
+One-to-one migration, preserving the shade number (`indigo-600` -> `brand-600`).
 
-- `src/lib/utils.ts`: `focusInput` y `focusRing`. Da estado de foco branded en toda la app.
-- `src/lib/chartUtils.ts`: la clave `indigo` del mapa `chartColors` pasa a llamarse `brand` y se mantiene
-  **primera**, de modo que `AvailableChartColors` deja la serie primaria sobre el acento.
+- `src/lib/utils.ts`: `focusInput` and `focusRing`. Gives branded focus state across the whole app.
+- `src/lib/chartUtils.ts`: the `indigo` key of the `chartColors` map is renamed to `brand` and is kept
+  **first**, so that `AvailableChartColors` leaves the primary series on the accent.
 - `src/components/`: `Badge`, `Calendar`, `ProgressBar`, `RadioCard`.
 - `src/components/ui/navigation/`: `sidebar`, `MobileSidebar`, `SidebarWorkspacesDropdown`.
-- `src/components/ui/overview/`: las tres tarjetas del dashboard.
-- `src/app/(main)/overview/page.tsx` y `src/app/layout.tsx` (`selection:`).
+- `src/components/ui/overview/`: the three dashboard cards.
+- `src/app/(main)/overview/page.tsx` and `src/app/layout.tsx` (`selection:`).
 
-> Trampa evitada: `chartColors` usa `indigo` como **clave**, no solo como clase. `getColorClassName`
-> cae a gris ante una clave desconocida, así que renombrar la clave sin actualizar
-> `colors={["indigo", "gray"]}` en `DashboardChartCard.tsx` habría puesto la serie primaria en gris
-> **sin error de tipos y con el build en verde**. Se actualizó el call site.
+> Trap avoided: `chartColors` uses `indigo` as a **key**, not just as a class. `getColorClassName`
+> falls back to gray on an unknown key, so renaming the key without updating
+> `colors={["indigo", "gray"]}` in `DashboardChartCard.tsx` would have put the primary series in gray
+> **with no type error and a green build**. The call site was updated.
 
-### 1.5 Datos demo
+### 1.5 Demo data
 
 `src/data/data.ts`:
 
-- `users[]`: las 7 identidades reemplazadas. La primera es el sample user del brief
-  (`Nova Admin` / `NA` / `admin@novaanalytics.io`, rol `admin`).
-- `invitedUsers[]`: emails `@gmail.com` y `@bluewin.ch` migrados a `@novaanalytics.io`.
-- **Bug corregido**: el dataset original repetía `a.stone@gmail.com` en dos usuarios distintos.
-  Los 9 emails son ahora únicos, lo que además permite usarlos como `key` de React en la tabla.
+- `users[]`: the 7 identities replaced. The first is the brief's sample user
+  (`Nova Admin` / `NA` / `admin@novaanalytics.io`, role `admin`).
+- `invitedUsers[]`: `@gmail.com` and `@bluewin.ch` emails migrated to `@novaanalytics.io`.
+- **Bug fixed**: the original dataset repeated `a.stone@gmail.com` on two different users.
+  The 9 emails are now unique, which also allows using them as React `key` in the table.
 
-### 1.6 Navegación
+### 1.6 Navigation
 
-- `MobileSidebar.tsx`: `<DrawerTitle>` usa `siteConfig.name` en vez de `"Retail Analytics"`.
-- `SidebarWorkspacesDropdown.tsx`: el workspace pasa a `nova-analytics` / `"Nova Analytics"` / `NA`,
-  en los tres sitios donde estaba hardcodeado.
-- `ModalAddWorkspace.tsx`: la copy decía `"Database region"` y `"Database configuration"` en un modal de
-  **crear workspace**. Reescrita a `"Workspace region"` / `"Workspace configuration"`, con el `const`
-  interno `databases` renombrado a `workspaceTiers`.
+- `MobileSidebar.tsx`: `<DrawerTitle>` uses `siteConfig.name` instead of `"Retail Analytics"`.
+- `SidebarWorkspacesDropdown.tsx`: the workspace changes to `nova-analytics` / `"Nova Analytics"` / `NA`,
+  in the three places where it was hardcoded.
+- `ModalAddWorkspace.tsx`: the copy said `"Database region"` and `"Database configuration"` in a modal for
+  **creating a workspace**. Rewritten to `"Workspace region"` / `"Workspace configuration"`, with the internal
+  `const` `databases` renamed to `workspaceTiers`.
 
-### 1.7 Favicon y OG image
+### 1.7 Favicon and OG image
 
-- **Borrados**: `src/app/favicon.ico`, `src/app/opengraph-image.png`, `public/og_github.jpg`.
-  `favicon.ico` tenía que irse: en el app dir de Next 14 tiene precedencia sobre `icon.svg`.
-- **Creado** `src/app/icon.svg`: el mark de `BrandLogo` (cuadrado redondeado `#4F46E5` = `brand-600`,
-  tres barras ascendentes). Vectorial, nítido a 16x16.
-- **Creado** `src/app/opengraph-image.tsx`: genera el PNG 1200x630 con `ImageResponse` de `next/og`
-  (ya viene con Next 14, cero dependencias nuevas). Lee `name`, `tagline` y `url` de `siteConfig`.
+- **Deleted**: `src/app/favicon.ico`, `src/app/opengraph-image.png`, `public/og_github.jpg`.
+  `favicon.ico` had to go: in the Next 14 app dir it takes precedence over `icon.svg`.
+- **Created** `src/app/icon.svg`: the `BrandLogo` mark (rounded square `#4F46E5` = `brand-600`,
+  three ascending bars). Vector, crisp at 16x16.
+- **Created** `src/app/opengraph-image.tsx`: generates the 1200x630 PNG with `ImageResponse` from `next/og`
+  (already ships with Next 14, zero new dependencies). Reads `name`, `tagline` and `url` from `siteConfig`.
 
-> `runtime = "edge"` es obligatorio aquí, no cosmético. El build node de `@vercel/og` resuelve su fuente
-> por defecto con `fileURLToPath`, que lanza `TypeError: Invalid URL` sobre rutas Windows al importar el
-> módulo. Rompía `pnpm build` en el prerender de `/opengraph-image`. El build edge no hace esa resolución.
-> Los colores van en hex literal porque Satori no lee CSS vars ni clases de Tailwind; los cuatro valores
-> (`#4F46E5`, `#3730A3`, `#1E1B4B`, `#C7D2FE`) son exactamente `brand-600/800/950/200` de `globals.css`.
+> `runtime = "edge"` is mandatory here, not cosmetic. The node build of `@vercel/og` resolves its default font
+> with `fileURLToPath`, which throws `TypeError: Invalid URL` on Windows paths when importing the
+> module. It broke `pnpm build` in the prerender of `/opengraph-image`. The edge build does not do that
+> resolution. The colors go in literal hex because Satori does not read CSS vars or Tailwind classes; the four
+> values (`#4F46E5`, `#3730A3`, `#1E1B4B`, `#C7D2FE`) are exactly `brand-600/800/950/200` from `globals.css`.
 
 ---
 
-## 2. Criterios de aceptación
+## 2. Acceptance criteria
 
-| Criterio | Estado |
+| Criterion | Status |
 | --- | --- |
-| `grep -rEi "tremor\|retail analytics\|yourname\|emma stone\|acme.com\|indigo"` en `src/` `public/` | Cero hits en UI. Solo comentarios `// Tremor Raw` y atributos `tremor-id` |
-| `pnpm exec tsc --noEmit` | Limpio |
+| `grep -rEi "tremor\|retail analytics\|yourname\|emma stone\|acme.com\|indigo"` in `src/` `public/` | Zero hits in UI. Only `// Tremor Raw` comments and `tremor-id` attributes |
+| `pnpm exec tsc --noEmit` | Clean |
 | `pnpm lint` | `No ESLint warnings or errors` |
-| `pnpm build` | Verde |
-| Favicon verificado | `/icon.svg` -> 200 `image/svg+xml`; `<link rel="icon">` apunta a él |
-| OG image verificada | `/opengraph-image` -> 200 `image/png`, PNG real 1200x630 |
-| Rutas | `/overview` `/details` `/settings` -> 200; ruta inexistente -> 404 |
-| HTML renderizado sin rastros | `curl` de las tres rutas: cero hits |
-| Sin dependencias nuevas | `pnpm-lock.yaml` intacto; `package.json` solo cambia `name` |
-| `LICENSE.md` | Intacto |
-| Sin em-dash en copy de producto | Cero hits en `src/` |
-| Sin coautoría de IA | Cero hits en el diff |
+| `pnpm build` | Green |
+| Favicon verified | `/icon.svg` -> 200 `image/svg+xml`; `<link rel="icon">` points to it |
+| OG image verified | `/opengraph-image` -> 200 `image/png`, real PNG 1200x630 |
+| Routes | `/overview` `/details` `/settings` -> 200; nonexistent route -> 404 |
+| Rendered HTML without traces | `curl` of the three routes: zero hits |
+| No new dependencies | `pnpm-lock.yaml` intact; `package.json` only changes `name` |
+| `LICENSE.md` | Intact |
+| No em-dash in product copy | Zero hits in `src/` |
+| No AI co-authorship | Zero hits in the diff |
 
-Verificación hecha contra el servidor de desarrollo real, no solo con el build.
-
----
-
-## 3. Se conserva a propósito
-
-- Comentarios `// Tremor Raw ...` en `src/lib/*` y en los primitives de `src/components/*`, y los
-  atributos DOM `tremor-id="tremor-raw"` de `DatePicker.tsx` y `Drawer.tsx`. Son atribución de origen
-  del código, no UI visible. Apache 2.0 lo permite y conservarlos es lo correcto.
-- `LICENSE.md` íntegro.
+Verification done against the real development server, not just with the build.
 
 ---
 
-## 4. Deuda conocida que entra a M3+
+## 3. Kept on purpose
 
-- **Los 52 `owner` de `usage[]`** en `src/data/data.ts` (`"John Doe"`, `"Wei Zhang"`, ...) siguen siendo
-  nombres genéricos. No son rastros del producto original: no llevan email, dominio ni marca. Se dejaron
-  a propósito. Sustituir 52 nombres neutros por otros 52 neutros es churn sin valor de whitelabel.
-- `UserProfile.tsx` y `DropdownUserProfile.tsx` leen `siteConfig.sampleUser`. **M3 los reemplaza** por
-  `<UserButton/>` y `useUser()` de Clerk, así que ese acoplamiento es deliberadamente temporal.
-- El `<h1>` de `/settings` vive en `settings/layout.tsx`. `settings` sigue fuera del route group `(main)`.
-  Importa para el matcher del middleware de Clerk en M3.
-- `next.config.mjs` mantiene el redirect `/` -> `/overview` con `permanent: true` (308). M4 debe
-  eliminarlo y probar la landing en incógnito, porque el 308 se cachea fuerte.
+- `// Tremor Raw ...` comments in `src/lib/*` and in the primitives of `src/components/*`, and the
+  `tremor-id="tremor-raw"` DOM attributes of `DatePicker.tsx` and `Drawer.tsx`. They are origin attribution
+  of the code, not visible UI. Apache 2.0 allows it and keeping them is the right thing.
+- `LICENSE.md` in full.
+
+---
+
+## 4. Known debt entering M3+
+
+- **The 52 `owner` values of `usage[]`** in `src/data/data.ts` (`"John Doe"`, `"Wei Zhang"`, ...) are still
+  generic names. They are not traces of the original product: they carry no email, domain or brand. They were
+  left on purpose. Replacing 52 neutral names with another 52 neutral ones is churn with no whitelabel value.
+- `UserProfile.tsx` and `DropdownUserProfile.tsx` read `siteConfig.sampleUser`. **M3 replaces them** with
+  `<UserButton/>` and `useUser()` from Clerk, so that coupling is deliberately temporary.
+- The `<h1>` of `/settings` lives in `settings/layout.tsx`. `settings` remains outside the `(main)` route group.
+  It matters for the Clerk middleware matcher in M3.
+- `next.config.mjs` keeps the redirect `/` -> `/overview` with `permanent: true` (308). M4 must
+  remove it and test the landing in incognito, because the 308 is cached hard.

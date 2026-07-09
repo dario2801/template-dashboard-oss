@@ -1,123 +1,123 @@
 # HANDOFF — Nova Analytics trial
 
-Contexto completo para retomar el trabajo en una sesión nueva. Léelo entero antes de tocar nada.
+Full context to resume the work in a new session. Read it all before touching anything.
 
 ---
 
-## 1. Qué es esto
+## 1. What this is
 
-Trial técnico para el puesto de **AI Agent Engineer**.
+Technical trial for the **AI Agent Engineer** role.
 
-- **Empleador real: Dot Com Media** (quien evalúa; firma el correo del brief).
-- **Nova Analytics** es la **cliente ficticia** del ejercicio. No confundir. La P11 del cuestionario
-  behavioral ("what excites you about working with our company") se responde sobre **Dot Com Media**.
-- **Owner:** Dario Auda. GitHub `dario2801`. Chat en español; código/commits/README/PRs en inglés.
+- **Real employer: Dot Com Media** (who evaluates; signs the brief email).
+- **Nova Analytics** is the **fictional client** of the exercise. Do not confuse them. Question 11 of the
+  behavioral questionnaire ("what excites you about working with our company") is answered about **Dot Com Media**.
+- **Owner:** Dario Auda. GitHub `dario2801`. Chat in Spanish; code/commits/README/PRs in English.
 
-**El encargo** (ver `docs/instructions.md`, el brief íntegro): forkear un dashboard open-source, rebrandearlo
-a Nova Analytics (whitelabel), añadir landing pública con login/signup funcional, deployar a URL pública con
-HTTPS, y grabar un video walkthrough. Todo hecho con Claude Code, documentando el proceso.
+**The assignment** (see `docs/instructions.md`, the full brief): fork an open-source dashboard, rebrand it
+to Nova Analytics (whitelabel), add a public landing page with working login/signup, deploy to a public URL with
+HTTPS, and record a walkthrough video. All done with Claude Code, documenting the process.
 
-**Repo base:** fork de `tremorlabs/template-dashboard-oss` (Apache 2.0). Next.js 14.2.23 App Router, React 18,
-TypeScript, Tailwind 3, Tremor Raw + Radix + Recharts. Arranca sin DB, con datos mock.
+**Base repo:** fork of `tremorlabs/template-dashboard-oss` (Apache 2.0). Next.js 14.2.23 App Router, React 18,
+TypeScript, Tailwind 3, Tremor Raw + Radix + Recharts. Boots without a DB, with mock data.
 
 ---
 
-## 2. Documentos que DEBES leer (en este orden)
+## 2. Documents you MUST read (in this order)
 
 | Archivo | Qué contiene |
 | --- | --- |
-| `CLAUDE.md` (raíz) | **Políticas de operación.** Guardrails inviolables. Léelo primero. |
-| `docs/PLAN.md` | El plan completo por milestones (M0-M6), arquitectura y criterios de aceptación. |
-| `docs/instructions.md` | El brief original del correo (requisitos duros + extra credit). |
-| `docs/completed/M0-setup.md` | Qué se hizo en M0 + inventario de strings a barrer. |
-| `docs/completed/M1-brand-foundation.md` | Qué se hizo en M1 + decisiones de paleta. |
-| `docs/contexto.md` | Contexto operativo previo del owner (versión larga, en español). |
-| `docs/Behavioral & Work Style Questionnaire.pdf` | 15 preguntas personales, 5 secciones. Entregable duro. |
+| `CLAUDE.md` (root) | **Operating policies.** Inviolable guardrails. Read it first. |
+| `docs/PLAN.md` | The complete plan by milestones (M0-M6), architecture and acceptance criteria. |
+| `docs/instructions.md` | The original brief from the email (hard requirements + extra credit). |
+| `docs/completed/M0-setup.md` | What was done in M0 + inventory of strings to sweep. |
+| `docs/completed/M1-brand-foundation.md` | What was done in M1 + palette decisions. |
+| `docs/CONTEXT.md` | Prior operating context from the owner (long version, in Spanish). |
+| `docs/Behavioral & Work Style Questionnaire.pdf` | 15 personal questions, 5 sections. Hard deliverable. |
 
 ---
 
-## 3. Reglas inviolables (NO las rompas)
+## 3. Inviolable rules (do NOT break them)
 
-1. **NUNCA `git commit` sin permiso explícito en el prompt actual.** El permiso NO se acumula entre prompts.
-   Cada commit se pide de nuevo.
-2. **NUNCA `git push`, merge a `main`, ni reescribir historia** sin permiso explícito en el prompt actual.
-3. **CERO coautoría de IA.** Nada de `Co-Authored-By: Claude`, "Generated with Claude Code", ni ninguna
-   atribución a la IA en commits, PRs o footers. El autor es **Dario Auda `<gonzalezdauda@gmail.com>`**
-   (ya configurado en `git config --local` de este repo).
-4. **Modo paso a paso.** Un milestone a la vez. Al cerrarlo: escribir `docs/completed/Mx-<nombre>.md`,
-   mostrar qué cambió, y PEDIR PERMISO para commitear.
-5. **Nunca leer `.env.local`.** Toda env var nueva va a `.env.example` (solo el nombre) en el mismo cambio.
-   Claves de Clerk nunca en logs ni respuestas.
-6. **No reescribir el fork.** Whitelabel + landing + auth + deploy es TODO el alcance. Nada de multi-tenancy,
-   RLS, ni API-key-por-endpoint.
-7. **SOLID proporcional al alcance.** Componentes de responsabilidad única. Lo más simple que cumpla el 100%.
-8. **Comentarios:** solo el "por qué" no obvio. Sin ruido.
-9. **Copy de UI sin em-dash (—).** Usar punto, coma o dos puntos.
-10. **Commits descriptivos**, convención `tipo: descripción`, reflejando "Nova Analytics" (nunca "Tremor").
+1. **NEVER `git commit` without explicit permission in the current prompt.** Permission does NOT accumulate
+   between prompts. Each commit is requested anew.
+2. **NEVER `git push`, merge to `main`, or rewrite history** without explicit permission in the current prompt.
+3. **ZERO AI co-authorship.** No `Co-Authored-By: Claude`, "Generated with Claude Code", or any
+   attribution to the AI in commits, PRs, or footers. The author is **Dario Auda `<gonzalezdauda@gmail.com>`**
+   (already configured in this repo's `git config --local`).
+4. **Step-by-step mode.** One milestone at a time. On closing it: write `docs/completed/Mx-<nombre>.md`,
+   show what changed, and ASK FOR PERMISSION to commit.
+5. **Never read `.env.local`.** Every new env var goes to `.env.example` (name only) in the same change.
+   Clerk keys never in logs or responses.
+6. **Do not rewrite the fork.** Whitelabel + landing + auth + deploy is the WHOLE scope. No multi-tenancy,
+   RLS, or API-key-per-endpoint.
+7. **SOLID proportional to scope.** Single-responsibility components. The simplest thing that meets 100%.
+8. **Comments:** only the non-obvious "why". No noise.
+9. **UI copy without the em-dash (`—`).** Use a period, comma, or colon.
+10. **Descriptive commits**, `type: description` convention, reflecting "Nova Analytics" (never "Tremor").
 
 ---
 
-## 4. Estado actual del repo
+## 4. Current repo state
 
-**Ubicación:** `c:\Users\gonza\Desktop\test` (la raíz ES el repo git; `docs/` vive dentro).
+**Location:** `c:\Users\gonza\Desktop\test` (the root IS the git repo; `docs/` lives inside).
 
 ```
-Branch: main  ->  origin/main (ahead 2, SIN PUSH todavía)
-Working tree: LIMPIO
+Branch: main  ->  origin/main (ahead 2, NO PUSH yet)
+Working tree: CLEAN
 
 f245afa  feat: add Nova Analytics brand foundation (palette, logo, siteConfig)   <- M1
 075233d  docs: add project policies (CLAUDE.md), plan and trial docs             <- M0
-a20f619  update deps                                                             <- base del fork
+a20f619  update deps                                                             <- fork base
 ```
 
 **Remotes:**
-- `origin`  -> `https://github.com/dario2801/template-dashboard-oss.git` (el fork del owner)
-- `upstream` -> `https://github.com/tremorlabs/template-dashboard-oss.git` (el original)
+- `origin`  -> `https://github.com/dario2801/template-dashboard-oss.git` (the owner's fork)
+- `upstream` -> `https://github.com/tremorlabs/template-dashboard-oss.git` (the original)
 
-**Identidad git (local, ya configurada):** `Dario Auda <gonzalezdauda@gmail.com>`
+**Git identity (local, already configured):** `Dario Auda <gonzalezdauda@gmail.com>`
 
-**Tooling verificado:** git 2.40, gh CLI autenticado como `dario2801` (scopes repo+workflow), node 20.19,
-pnpm 10.33. Owner confirma tener cuentas listas de **GitHub, Vercel y Clerk**.
+**Verified tooling:** git 2.40, gh CLI authenticated as `dario2801` (scopes repo+workflow), node 20.19,
+pnpm 10.33. Owner confirms having accounts ready for **GitHub, Vercel and Clerk**.
 
-**Comandos:** `pnpm install`, `pnpm dev` (localhost:3000), `pnpm build`, `pnpm lint`,
-`pnpm exec tsc --noEmit`. Todo verde a día de hoy.
+**Commands:** `pnpm install`, `pnpm dev` (localhost:3000), `pnpm build`, `pnpm lint`,
+`pnpm exec tsc --noEmit`. All green as of today.
 
 ---
 
-## 5. Milestones: hecho vs pendiente
+## 5. Milestones: done vs pending
 
 | Milestone | Estado |
 | --- | --- |
-| **M0** Setup (fork, repo en raíz, CLAUDE.md, boot verify) | ✅ commiteado `075233d` |
-| **M1** Brand foundation (paleta, token, BrandLogo, siteConfig) | ✅ commiteado `f245afa` |
-| **M2** Whitelabel sweep | ⬜ **SIGUIENTE** |
-| **M3** Clerk auth (login/signup, dashboard protegido) | ⬜ |
-| **M4** Landing page pública en `/` | ⬜ |
-| **M5** Deploy en Vercel (HTTPS, público) | ⬜ |
-| **M6** Extra credit + README + cuestionario | ⬜ |
+| **M0** Setup (fork, repo at root, CLAUDE.md, boot verify) | ✅ committed `075233d` |
+| **M1** Brand foundation (palette, token, BrandLogo, siteConfig) | ✅ committed `f245afa` |
+| **M2** Whitelabel sweep | ⬜ **NEXT** |
+| **M3** Clerk auth (login/signup, protected dashboard) | ⬜ |
+| **M4** Public landing page at `/` | ⬜ |
+| **M5** Deploy on Vercel (HTTPS, public) | ⬜ |
+| **M6** Extra credit + README + questionnaire | ⬜ |
 
-### Lo que ya existe (de M1)
+### What already exists (from M1)
 
-- `src/app/globals.css` -> variables CSS `--brand-50 … --brand-950` (azul-violeta, acento `600` = #4F46E5).
-- `tailwind.config.ts` -> token `brand` (`theme.extend.colors.brand`, formato
-  `rgb(var(--brand-N) / <alpha-value>)`, `DEFAULT` = 500). Usable como `brand-600`, `brand-500/50`.
-- `src/app/siteConfig.ts` -> **single source of truth** de la identidad:
+- `src/app/globals.css` -> CSS variables `--brand-50 … --brand-950` (blue-violet, accent `600` = #4F46E5).
+- `tailwind.config.ts` -> `brand` token (`theme.extend.colors.brand`, format
+  `rgb(var(--brand-N) / <alpha-value>)`, `DEFAULT` = 500). Usable as `brand-600`, `brand-500/50`.
+- `src/app/siteConfig.ts` -> **single source of truth** for the identity:
   `name`, `tagline`, `description`, `url`, `supportEmail` (hello@novaanalytics.io),
-  `sampleUser` (admin@novaanalytics.io), `baseLinks` (incluye `signIn: "/sign-in"`, `signUp: "/sign-up"`),
-  y `externalLink.blocks` (temporal, apunta a `/overview`; ver deuda técnica abajo).
-- `src/components/brand/brand-logo.tsx` -> `<BrandLogo variant="full" | "icon">`. Mark original: cuadrado
-  redondeado `brand-600` con tres barras ascendentes. Es el ÚNICO lugar donde vive la marca.
-- `src/app/not-found.tsx` -> ya usa `<BrandLogo>` y `text-brand-*`.
-- `public/DatabaseLogo.tsx` -> **eliminado**.
+  `sampleUser` (admin@novaanalytics.io), `baseLinks` (includes `signIn: "/sign-in"`, `signUp: "/sign-up"`),
+  and `externalLink.blocks` (temporary, points to `/overview`; see technical debt below).
+- `src/components/brand/brand-logo.tsx` -> `<BrandLogo variant="full" | "icon">`. Original mark: rounded
+  `brand-600` square with three ascending bars. It is the ONLY place where the brand lives.
+- `src/app/not-found.tsx` -> already uses `<BrandLogo>` and `text-brand-*`.
+- `public/DatabaseLogo.tsx` -> **removed**.
 
 ---
 
-## 6. M2 — Whitelabel sweep (el siguiente milestone)
+## 6. M2 — Whitelabel sweep (the next milestone)
 
-**Meta:** cero rastros visibles del producto original. Los 4 obligatorios del brief son
+**Goal:** zero visible traces of the original product. The 4 mandatory ones from the brief are
 **logo, favicon, application name, footer credits**.
 
-### 6.1 Strings de marca a reemplazar (grep real, con línea)
+### 6.1 Brand strings to replace (real grep, with line)
 
 ```
 src/app/layout.tsx:22           name: "yourname"
@@ -128,90 +128,90 @@ src/app/layout.tsx               metadataBase: "https://yoururl.com"  (placehold
 src/data/data.ts:97             name: "Emma Stone"
 src/data/data.ts:117            email: "a.flow@acme.com"
 src/data/data.ts:123            email: "t.palstein@acme.com"
-src/components/ui/navigation/UserProfile.tsx:27              "Emma Stone"  (+ iniciales "ES")
+src/components/ui/navigation/UserProfile.tsx:27              "Emma Stone"  (+ initials "ES")
 src/components/ui/navigation/DropdownUserProfile.tsx:49      "emma.stone@acme.com"
 src/components/ui/navigation/MobileSidebar.tsx:81            <DrawerTitle>Retail Analytics</DrawerTitle>
-src/components/ui/navigation/SidebarWorkspacesDropdown.tsx:19  value: "retail-analytics"  (+ "Retail analytics", iniciales "RA")
+src/components/ui/navigation/SidebarWorkspacesDropdown.tsx:19  value: "retail-analytics"  (+ "Retail analytics", initials "RA")
 src/components/ui/navigation/ModalAddWorkspace.tsx:121        "Database region"
 src/components/ui/navigation/ModalAddWorkspace.tsx:147        "Database configuration"
 ```
 
-Además, `src/data/data.ts` tiene más nombres/emails demo: "Sarah Johnson", "John Doe", "Jane Smith",
-"Alejandro Garcia", "Wei Zhang", dominios `@gmail.com`, `@bluewin.ch`. Todos deben pasar a identidades
-Nova Analytics (usar `admin@novaanalytics.io` como el sample user del brief).
+In addition, `src/data/data.ts` has more demo names/emails: "Sarah Johnson", "John Doe", "Jane Smith",
+"Alejandro Garcia", "Wei Zhang", domains `@gmail.com`, `@bluewin.ch`. All must be changed to Nova Analytics
+identities (use `admin@novaanalytics.io` as the brief's sample user).
 
 ### 6.2 Color: `indigo` -> `brand`
 
-**29 ocurrencias de `indigo` en 14 archivos.** Reemplazar las de UI visible por `brand-*`:
+**29 occurrences of `indigo` across 14 files.** Replace the visible-UI ones with `brand-*`:
 
 ```
 src/app/layout.tsx, src/app/(main)/overview/page.tsx
 src/components/Badge.tsx, Calendar.tsx, ProgressBar.tsx, RadioCard.tsx
 src/components/ui/overview/DashboardCategoryBarCard.tsx, DashboardProgressBarCard.tsx, DashboardChartCard.tsx
 src/components/ui/navigation/MobileSidebar.tsx, sidebar.tsx, SidebarWorkspacesDropdown.tsx
-src/lib/utils.ts (3), src/lib/chartUtils.ts (5)   <- REVISAR: focus rings y chart colors
+src/lib/utils.ts (3), src/lib/chartUtils.ts (5)   <- REVIEW: focus rings and chart colors
 ```
 
-Ojo con `src/lib/chartUtils.ts`: define la paleta de los charts. Decidir si el chart primario usa `brand`.
-Y `src/lib/utils.ts`: los `focusInput`/`focusRing` usan indigo; cambiarlos a `brand` da coherencia.
+Watch out for `src/lib/chartUtils.ts`: it defines the charts' palette. Decide whether the primary chart uses
+`brand`. And `src/lib/utils.ts`: the `focusInput`/`focusRing` use indigo; changing them to `brand` gives coherence.
 
-### 6.3 Favicon y OG image
+### 6.3 Favicon and OG image
 
-- `src/app/favicon.ico` y `src/app/opengraph-image.png` siguen siendo los de Tremor. **Regenerarlos** con el
-  mark de `<BrandLogo variant="icon">` (cuadrado `brand-600` + 3 barras).
-- `public/og_github.jpg` también es del template.
-- **El grep NO detecta binarios.** La aceptación de favicon es **verificación visual** del icono en el tab del
-  navegador.
+- `src/app/favicon.ico` and `src/app/opengraph-image.png` are still Tremor's. **Regenerate them** with the
+  mark from `<BrandLogo variant="icon">` (`brand-600` square + 3 bars).
+- `public/og_github.jpg` is also from the template.
+- **The grep does NOT detect binaries.** Favicon acceptance is **visual verification** of the icon in the
+  browser tab.
 
-### 6.4 Páginas paywall (deuda técnica de M1)
+### 6.4 Paywall pages (M1 technical debt)
 
-`src/app/(main)/details/page.tsx` y `src/app/settings/page.tsx` son placeholders del template: muestran
-`<TremorPlaceholder>` y un botón "Get full template here" que enlazaba a `blocks.tremor.so`.
+`src/app/(main)/details/page.tsx` and `src/app/settings/page.tsx` are template placeholders: they show
+`<TremorPlaceholder>` and a "Get full template here" button that linked to `blocks.tremor.so`.
 
-En M1 se restauró `siteConfig.externalLink.blocks` apuntando a `/overview` solo para no romper `tsc`.
-**En M2 hay que decidir:** rebrandear esas páginas con contenido propio de Nova Analytics, o retirarlas.
-Y eliminar `src/components/ui/icons/TremorPlaceholder.tsx`.
+In M1, `siteConfig.externalLink.blocks` was restored pointing to `/overview` only to avoid breaking `tsc`.
+**In M2 a decision is needed:** rebrand those pages with Nova Analytics's own content, or remove them.
+And delete `src/components/ui/icons/TremorPlaceholder.tsx`.
 
-### 6.5 NO tocar (atribución legítima)
+### 6.5 Do NOT touch (legitimate attribution)
 
-- Comentarios `// Tremor Raw ...` en `src/lib/utils.ts`, `chartUtils.ts`, `useOnWindowResize.tsx`. Son
-  atribución de origen del código, NO UI visible. Apache 2.0 lo permite y es correcto conservarlos.
-- `LICENSE.md` (Apache 2.0, copyright Tremor Labs). **Se conserva íntegro.**
+- `// Tremor Raw ...` comments in `src/lib/utils.ts`, `chartUtils.ts`, `useOnWindowResize.tsx`. They are
+  code-origin attribution, NOT visible UI. Apache 2.0 allows it and it is correct to keep them.
+- `LICENSE.md` (Apache 2.0, copyright Tremor Labs). **Kept intact.**
 
-### 6.6 Criterio de aceptación de M2
+### 6.6 M2 acceptance criteria
 
 ```bash
 grep -rEi "tremor|database logo|retail analytics|yourname|emma stone|acme\.com" src/ public/
-# -> cero resultados en UI visible (los comentarios "Tremor Raw" en src/lib/* son OK)
+# -> zero results in visible UI (the "Tremor Raw" comments in src/lib/* are OK)
 ```
-+ verificación visual del favicon en el tab
-+ `pnpm build` verde, `pnpm exec tsc --noEmit` limpio
-+ revisión visual del dashboard sin rastros
++ visual verification of the favicon in the tab
++ `pnpm build` green, `pnpm exec tsc --noEmit` clean
++ visual review of the dashboard with no traces
 
 ---
 
-## 7. Hallazgos críticos para milestones futuros
+## 7. Critical findings for future milestones
 
-### M4 — el root NO está libre
-`next.config.mjs` tiene un **redirect `/` -> `/overview` con `permanent: true` (HTTP 308)**.
-Para poner la landing en `/` hay que **eliminar ese redirect**. Como el 308 se cachea fuerte en el navegador,
-**probar la landing en ventana de incógnito**.
+### M4 — the root is NOT free
+`next.config.mjs` has a **redirect `/` -> `/overview` with `permanent: true` (HTTP 308)**.
+To put the landing at `/` that redirect must be **removed**. Since the 308 is cached hard in the browser,
+**test the landing in an incognito window**.
 
-No existe `src/app/page.tsx`. Rutas actuales: `/overview` (dashboard real),
-`/details` y `/settings` (placeholders). **`settings` NO está en el route group `(main)`**, es un hermano
-top-level con su propio layout. Importa para el matcher del middleware de Clerk.
+There is no `src/app/page.tsx`. Current routes: `/overview` (real dashboard),
+`/details` and `/settings` (placeholders). **`settings` is NOT in the `(main)` route group**, it is a
+top-level sibling with its own layout. It matters for the Clerk middleware matcher.
 
 ### M3 — Clerk
-- `pnpm add @clerk/nextjs`. **No hay auth ni `middleware.ts` hoy.** Clean slate.
-- `ClerkProvider` va en `src/app/layout.tsx`, por fuera del `ThemeProvider` de next-themes (que ya existe).
-- `src/middleware.ts` (Next 14 usa `middleware.ts`, no `proxy.ts`): proteger `/overview`, `/details`,
-  `/settings`; dejar público `/`, `/sign-in`, `/sign-up`.
-  Patrón para Next 14: `clerkMiddleware` + `createRouteMatcher` + `auth.protect()`.
-  **Verificar al instalar** si la versión marca `createRouteMatcher` como deprecado y usar el patrón vigente.
-- Rutas catch-all: `src/app/sign-in/[[...sign-in]]/page.tsx` y `src/app/sign-up/[[...sign-up]]/page.tsx`.
-- Reemplazar `UserProfile.tsx` / `DropdownUserProfile.tsx` (hardcode "Emma Stone") por `<UserButton/>` /
+- `pnpm add @clerk/nextjs`. **There is no auth or `middleware.ts` today.** Clean slate.
+- `ClerkProvider` goes in `src/app/layout.tsx`, outside the next-themes `ThemeProvider` (which already exists).
+- `src/middleware.ts` (Next 14 uses `middleware.ts`, not `proxy.ts`): protect `/overview`, `/details`,
+  `/settings`; leave `/`, `/sign-in`, `/sign-up` public.
+  Pattern for Next 14: `clerkMiddleware` + `createRouteMatcher` + `auth.protect()`.
+  **Verify on install** whether the version marks `createRouteMatcher` as deprecated and use the current pattern.
+- Catch-all routes: `src/app/sign-in/[[...sign-in]]/page.tsx` and `src/app/sign-up/[[...sign-up]]/page.tsx`.
+- Replace `UserProfile.tsx` / `DropdownUserProfile.tsx` (hardcoded "Emma Stone") with `<UserButton/>` /
   `useUser()`.
-- **Env vars (todas a `.env.example`, nombres solamente):**
+- **Env vars (all to `.env.example`, names only):**
   ```
   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
   CLERK_SECRET_KEY
@@ -220,54 +220,54 @@ top-level con su propio layout. Importa para el matcher del middleware de Clerk.
   NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/overview
   NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/overview
   ```
-- **`.gitignore` ya ignora `.env*.local`** (verificado en M0). Las claves reales las pide el owner; nunca
-  leerlas de archivos.
-- **Verificar los DOS caminos del redirect** (el `FALLBACK_REDIRECT_URL` solo aplica si no hay `redirect_url`
-  en la URL): (a) login desde la landing -> `/overview`; (b) entrar sin sesión directo a `/overview` -> Clerk
-  manda a `/sign-in` -> tras autenticarse debe volver al dashboard.
+- **`.gitignore` already ignores `.env*.local`** (verified in M0). The real keys are requested from the owner;
+  never read them from files.
+- **Verify BOTH redirect paths** (the `FALLBACK_REDIRECT_URL` only applies if there is no `redirect_url`
+  in the URL): (a) login from the landing -> `/overview`; (b) go without a session directly to `/overview` ->
+  Clerk sends to `/sign-in` -> after authenticating it must return to the dashboard.
 
-### M4 — landing (estructura SOLID)
-`src/app/page.tsx` compone; un componente por sección en `src/components/landing/`:
+### M4 — landing (SOLID structure)
+`src/app/page.tsx` composes; one component per section in `src/components/landing/`:
 `landing-header.tsx`, `hero.tsx`, `features.tsx`, `cta.tsx`, `landing-footer.tsx`.
-Reusar el `Button` de Tremor y los tokens `brand`. Mobile-first. Sin em-dash.
-Actualizar el botón "home" de `not-found.tsx` para que apunte a la landing.
+Reuse the Tremor `Button` and the `brand` tokens. Mobile-first. No em-dash.
+Update the "home" button in `not-found.tsx` to point to the landing.
 
 ### M5 — deploy
-Vercel + integración Git (deploy automático en push a `main`). Cargar las env vars de Clerk en Vercel
-(**Production y Preview**). Configurar en Clerk las URLs de producción. **Requiere permiso para `git push`.**
+Vercel + Git integration (automatic deploy on push to `main`). Load the Clerk env vars into Vercel
+(**Production and Preview**). Configure the production URLs in Clerk. **Requires permission for `git push`.**
 
-### M6 — extra credit y submission
-- README de Nova Analytics: setup, stack, env vars, credenciales de prueba, limitaciones.
+### M6 — extra credit and submission
+- Nova Analytics README: setup, stack, env vars, test credentials, limitations.
 - CI/CD: `.github/workflows/ci.yml` (lint + build + tests).
-- Tests: Playwright e2e mínimo (landing -> sign-in -> dashboard) + unit del brand config.
-- Analytics: Vercel Analytics o `/api/health`.
-- **`docs/claude-evidence/`** con `PROMPTS.md` + screenshots. **Debe vivir EN el repo**: el revisor solo ve
-  el repo y el deploy; si la evidencia no está ahí, no existe para ellos.
-- **Cuestionario behavioral** -> `docs/behavioral-questionnaire-answers.md`. El PDF no es rellenable.
-  Se redacta **con datos reales del owner** (hacerle preguntas; NO inventar su historia).
-  La P11 va sobre **Dot Com Media**.
+- Tests: minimal Playwright e2e (landing -> sign-in -> dashboard) + unit test of the brand config.
+- Analytics: Vercel Analytics or `/api/health`.
+- **`docs/claude-evidence/`** with `PROMPTS.md` + screenshots. **It must live IN the repo**: the reviewer only
+  sees the repo and the deploy; if the evidence is not there, it does not exist for them.
+- **Behavioral questionnaire** -> `docs/behavioral-questionnaire-answers.md`. The PDF is not fillable.
+  It is written **with the owner's real data** (ask him questions; do NOT invent his story).
+  Question 11 is about **Dot Com Media**.
 
 ---
 
-## 8. Submission checklist (entregables duros del correo)
+## 8. Submission checklist (hard deliverables from the email)
 
-- [ ] URL del fork de GitHub (público o con acceso al equipo revisor)
-- [ ] URL live del deploy (landing + login funcionando sobre HTTPS)
-- [ ] Credenciales de prueba (`admin@novaanalytics.io` + password)
-- [ ] Link del video walkthrough 5-10 min (lo graba el owner)
-- [ ] Notas de limitaciones / atajos / mejoras futuras (en README)
-- [ ] **Cuestionario behavioral respondido y enviado** (entregable duro, NO olvidar)
-- [ ] **Smoke test en prod JUSTO antes de enviar** (deploy vivo + login prod OK; el brief exige
-      "stable during the review window" dos veces)
+- [ ] GitHub fork URL (public or with access for the reviewing team)
+- [ ] Live deploy URL (landing + login working over HTTPS)
+- [ ] Test credentials (`admin@novaanalytics.io` + password)
+- [ ] Walkthrough video link 5-10 min (recorded by the owner)
+- [ ] Notes on limitations / shortcuts / future improvements (in README)
+- [ ] **Behavioral questionnaire answered and submitted** (hard deliverable, do NOT forget)
+- [ ] **Smoke test in prod JUST before submitting** (live deploy + prod login OK; the brief demands
+      "stable during the review window" twice)
 - [ ] (Bonus) `docs/claude-evidence/`, CI/CD, tests, analytics, custom domain
 
 ---
 
-## 9. Cómo arrancar la sesión nueva
+## 9. How to start the new session
 
-1. Lee `CLAUDE.md`, luego `docs/PLAN.md`, luego este archivo.
-2. `pnpm install` si `node_modules` no está.
-3. Confirma estado: `git log --oneline -3` y `git status`.
-4. Arranca **M2** siguiendo la sección 6.
-5. Al cerrar M2: escribe `docs/completed/M2-whitelabel-sweep.md`, muestra el diff, y **pide permiso para
-   commitear**. No commitees sin el "sí" del owner en ese mismo prompt.
+1. Read `CLAUDE.md`, then `docs/PLAN.md`, then this file.
+2. `pnpm install` if `node_modules` is not present.
+3. Confirm state: `git log --oneline -3` and `git status`.
+4. Start **M2** following section 6.
+5. On closing M2: write `docs/completed/M2-whitelabel-sweep.md`, show the diff, and **ask for permission to
+   commit**. Do not commit without the owner's "yes" in that same prompt.

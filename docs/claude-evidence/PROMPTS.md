@@ -16,6 +16,26 @@ repository, in any commit, contains a real secret.
 session. The three that shaped the work most: never commit without permission in the current prompt, never
 attribute anything to the AI, and work one milestone at a time, archiving each in `docs/completed/`.
 
+Each milestone ran in a **fresh terminal session**, handed off through `docs/HANDOFF.md` rather than a long
+chat. Context that has to survive a session boundary belongs in a file, not in a transcript. It keeps token
+use down, and it stops the model from drifting on half-remembered decisions from three hours earlier.
+
+**Tooling.**
+
+| Tool | Where it was used |
+| --- | --- |
+| [Claude Code](https://claude.com/claude-code) | The whole build, from the terminal |
+| `frontend-design` skill | Composing the landing page sections |
+| [`taste`](https://www.tasteskill.dev/) | Raising the visual quality of the marketing surface |
+| [`impeccable`](https://impeccable.style/) | Typographic corrections across the landing |
+| `code-review` (Claude Code plugin) | Reviewing the M1 pull request for bugs and inconsistencies |
+| [refero](https://styles.refero.design/style/7c38e84b-aea0-4c8f-b3e9-60b994ee6c6b) | Source of the dark editorial style reference in `docs/DESIGN/` |
+
+The `code-review` pass on M1 surfaced two candidate findings and **published neither**, because both scored
+below the threshold the flow requires. One was real but self-documented as known debt (a call to action
+pointing back at the page the user was already on, resolved in M2). The other was an imprecise commit
+message, not a defect. A review that reports nothing is a result, not a failure.
+
 ---
 
 ## M0: setup
@@ -140,7 +160,7 @@ The real URL mattered more than it looked. `siteConfig.url` still held a guessed
 `metadataBase` derives the absolute Open Graph URLs from it, so social previews would have pointed at a site
 that did not exist.
 
-Claude wrote 52 tests, then **mutation-tested the suite** rather than trusting a green run: it injected
+Claude wrote the suite, then **mutation-tested it** rather than trusting a green run: it injected
 `Emma Stone`, `acme.com` and `indigo-600` into a source file, confirmed three tests failed, and reverted. A
 test that has never failed proves nothing.
 

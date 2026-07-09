@@ -1,100 +1,98 @@
 # M3 — Clerk auth
 
-Login y signup funcionales, dashboard protegido. Rama: `feat/m3-m4-auth-and-landing` (junto con M4).
+Functional login and signup, protected dashboard. Branch: `feat/m3-m4-auth-and-landing` (together with M4).
 
 ---
 
-## 1. Qué se hizo
+## 1. What was done
 
-- `pnpm add @clerk/nextjs` (v7.5.14). Única dependencia nueva. Está en el stack de `CLAUDE.md` §2.
-- `src/middleware.ts`: `clerkMiddleware()` **sin checks de autorización**, conservando `config.matcher`.
-- `src/app/layout.tsx`: `<ClerkProvider>` envuelve el `<html>`, por fuera del `ThemeProvider`.
-- `src/app/(main)/layout.tsx`: **nuevo**. Contiene `await auth.protect()` y el shell del dashboard.
-- Rutas catch-all: `src/app/sign-in/[[...sign-in]]/page.tsx` y `src/app/sign-up/[[...sign-up]]/page.tsx`.
-- `src/components/auth/auth-shell.tsx` y `clerk-appearance.ts`: las pantallas de auth sobre el canvas
-  oscuro del sistema de diseño, sin añadir `@clerk/themes`.
-- `UserProfile.tsx` deja de leer `siteConfig.sampleUser` y usa `useUser()`. Las iniciales se derivan del
-  nombre real de la sesión.
-- `DropdownUserProfile.tsx` muestra el email de la sesión y "Sign out" ahora ejecuta
+- `pnpm add @clerk/nextjs` (v7.5.14). Only new dependency. It is in the stack of `CLAUDE.md` §2.
+- `src/middleware.ts`: `clerkMiddleware()` **with no authorization checks**, keeping `config.matcher`.
+- `src/app/layout.tsx`: `<ClerkProvider>` wraps the `<html>`, outside the `ThemeProvider`.
+- `src/app/(main)/layout.tsx`: **new**. Contains `await auth.protect()` and the dashboard shell.
+- Catch-all routes: `src/app/sign-in/[[...sign-in]]/page.tsx` and `src/app/sign-up/[[...sign-up]]/page.tsx`.
+- `src/components/auth/auth-shell.tsx` and `clerk-appearance.ts`: the auth screens over the dark canvas of the
+  design system, without adding `@clerk/themes`.
+- `UserProfile.tsx` no longer reads `siteConfig.sampleUser` and uses `useUser()`. The initials are derived from
+  the real name of the session.
+- `DropdownUserProfile.tsx` shows the session email and "Sign out" now runs
   `signOut({ redirectUrl: "/" })` via `useClerk()`.
-- `.env.example` con los seis nombres de variable. `.env.local` está gitignoreado y nunca se leyó.
+- `.env.example` with the six variable names. `.env.local` is gitignored and was never read.
 
 ---
 
-## 2. Dos hallazgos que cambiaron el plan
+## 2. Two findings that changed the plan
 
-### 2.1 `createRouteMatcher` está deprecado
+### 2.1 `createRouteMatcher` is deprecated
 
-El handoff pedía verificarlo, y efectivamente lo está en la 7.5.14:
+The handoff asked to verify it, and indeed it is in 7.5.14:
 
 > `@deprecated` This function will be removed in the next major version. Use resource-based auth checks
 > instead. Middleware-based auth checks rely on path matching, which can diverge from how Next.js routes
 > requests and **leave protected resources reachable**.
 
-Por eso el middleware **no** decide nada. La autorización vive en `(main)/layout.tsx`, que es el único
-punto por el que pasan `/overview`, `/details` y `/settings`.
+For that reason the middleware decides **nothing**. Authorization lives in `(main)/layout.tsx`, which is the only
+point through which `/overview`, `/details` and `/settings` pass.
 
-### 2.2 `auth.protect()` devuelve 404, no redirect, según el tipo de petición
+### 2.2 `auth.protect()` returns 404, not a redirect, depending on the request type
 
-La guía web dice "redirects them to the sign-in page". El `.d.ts` es más preciso:
+The web guide says "redirects them to the sign-in page". The `.d.ts` is more precise:
 
 > Throws a Nextjs notFound error if user is not authenticated or authorized.
 > \*For **non-document requests**, such as API requests, `auth.protect()` returns a `404`.
 
-Un `curl` plano a `/overview` devuelve **404**, no un redirect. No es un bug: es el contrato. Una
-navegación real (con `Sec-Fetch-Dest: document`) sí redirige. Verificarlo con curl a secas habría dado
-un falso negativo, y "arreglarlo" habría roto el comportamiento correcto para peticiones API.
+A plain `curl` to `/overview` returns **404**, not a redirect. It is not a bug: it is the contract. A real
+navigation (with `Sec-Fetch-Dest: document`) does redirect. Verifying it with a bare curl would have given a
+false negative, and "fixing" it would have broken the correct behavior for API requests.
 
 ---
 
-## 3. Cambio estructural: el sidebar salía en la landing
+## 3. Structural change: the sidebar showed up on the landing
 
-`src/app/layout.tsx` (el root) renderizaba `<Sidebar />` y `<main className="lg:pl-72">`. Como el root
-layout envuelve **todas** las rutas, la landing pública y las pantallas de login habrían salido con el
-sidebar del dashboard encima.
+`src/app/layout.tsx` (the root) rendered `<Sidebar />` and `<main className="lg:pl-72">`. Since the root layout
+wraps **all** routes, the public landing and the login screens would have shown up with the dashboard sidebar on
+top.
 
-Solución:
+Solution:
 
-- El root layout se queda con `ClerkProvider`, `ThemeProvider`, fuentes y metadata. Nada de UI de producto.
-- `(main)/layout.tsx` se lleva el `Sidebar`, el `<main>` y el `max-w-screen-2xl`, y añade `auth.protect()`.
-- `src/app/settings` se movió con `git mv` a `src/app/(main)/settings`. **La URL sigue siendo `/settings`**:
-  los route groups no afectan al path. Ahora las tres rutas del dashboard comparten un único punto de
-  control de acceso, en vez de tener `settings` como hermano top-level con su propio layout.
-- El `<h1>` que vivía en `settings/layout.tsx` pasó a `settings/page.tsx` y el layout se eliminó.
+- The root layout keeps `ClerkProvider`, `ThemeProvider`, fonts and metadata. No product UI.
+- `(main)/layout.tsx` takes over the `Sidebar`, the `<main>` and the `max-w-screen-2xl`, and adds `auth.protect()`.
+- `src/app/settings` was moved with `git mv` to `src/app/(main)/settings`. **The URL is still `/settings`**:
+  route groups do not affect the path. Now the three dashboard routes share a single access control point,
+  instead of having `settings` as a top-level sibling with its own layout.
+- The `<h1>` that lived in `settings/layout.tsx` moved to `settings/page.tsx` and the layout was removed.
 
 ---
 
-## 4. Verificación
+## 4. Verification
 
-Contra el servidor de desarrollo, no solo el build.
+Against the development server, not just the build.
 
-| Comprobación | Resultado |
+| Check | Result |
 | --- | --- |
-| `/`, `/sign-in`, `/sign-up` públicas | 200 |
-| `/overview` sin sesión, navegación real | 307 handshake, cadena de 4 saltos |
-| Destino final de esa cadena | `/sign-in?redirect_url=%2Foverview` con 200 |
-| `/overview` sin sesión, petición tipo API | 404 (contrato de Clerk, correcto) |
-| `/settings` sigue respondiendo en `/settings` tras el `git mv` | Sí |
-| Sidebar en `/`, `/sign-in`, `/nope` | Cero ocurrencias |
-| `tsc --noEmit`, `pnpm lint`, `pnpm build` | Verde |
-| `.env.local` en git | No, ignorado por `.gitignore:29` |
-| Claves en el diff | Cero |
+| `/`, `/sign-in`, `/sign-up` public | 200 |
+| `/overview` without session, real navigation | 307 handshake, chain of 4 hops |
+| Final destination of that chain | `/sign-in?redirect_url=%2Foverview` with 200 |
+| `/overview` without session, API-type request | 404 (Clerk contract, correct) |
+| `/settings` still responds at `/settings` after the `git mv` | Yes |
+| Sidebar on `/`, `/sign-in`, `/nope` | Zero occurrences |
+| `tsc --noEmit`, `pnpm lint`, `pnpm build` | Green |
+| `.env.local` in git | No, ignored by `.gitignore:29` |
+| Keys in the diff | Zero |
 
-El **camino (a)** del handoff (login desde la landing y aterrizar en `/overview` por
-`SIGN_IN_FALLBACK_REDIRECT_URL`) requiere una sesión real de navegador. La variable está puesta, pero
-**esto queda pendiente de verificación manual del owner**, junto con el aspecto visual de las pantallas
-de Clerk.
+The **path (a)** of the handoff (login from the landing and land on `/overview` via
+`SIGN_IN_FALLBACK_REDIRECT_URL`) requires a real browser session. The variable is set, but **this remains pending
+manual verification by the owner**, together with the visual appearance of the Clerk screens.
 
 ---
 
-## 5. Deuda y notas
+## 5. Debt and notes
 
-- El `DropdownUserProfile` original traía tres ítems muertos sin `href`: "Changelog", "Documentation" y
-  **"Join Slack community"**, residuo de la comunidad del template original. El grep de M2 no los cazó
-  porque no contienen la palabra "tremor". Se eliminaron aquí.
-- `siteConfig.sampleUser` sigue existiendo, pero **ningún componente lo consume**. Solo declara la credencial
-  del revisor, y `tests/demo-data.test.ts` la usa como contrato contra el primer usuario del dataset.
-  (En M6 se corrigió `settings/page.tsx`, que sí lo renderizaba y mostraba la identidad de demo al usuario
-  logueado.)
-- **La `sk_test` se compartió por chat.** Antes de la entrega hay que **rotarla en Clerk** y redactarla en
-  `docs/claude-evidence/PROMPTS.md`, o el secreto queda publicado en un repo público.
+- The original `DropdownUserProfile` brought three dead items with no `href`: "Changelog", "Documentation" and
+  **"Join Slack community"**, a leftover from the community of the original template. The M2 grep did not catch
+  them because they do not contain the word "tremor". They were removed here.
+- `siteConfig.sampleUser` still exists, but **no component consumes it**. It only declares the reviewer's
+  credential, and `tests/demo-data.test.ts` uses it as a contract against the first user of the dataset.
+  (In M6 `settings/page.tsx` was fixed, which did render it and showed the demo identity to the logged-in user.)
+- **The `sk_test` was shared over chat.** Before delivery it must be **rotated in Clerk** and redacted in
+  `docs/claude-evidence/PROMPTS.md`, or the secret stays published in a public repo.

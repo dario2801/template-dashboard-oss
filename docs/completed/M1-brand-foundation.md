@@ -1,51 +1,52 @@
 # M1 — Brand foundation: color token, BrandLogo, siteConfig
 
-**Estado:** completado. Paleta aprobada por el owner.
+**Status:** completed. Palette approved by the owner.
 
-## Qué se hizo
+## What was done
 
-Infraestructura de marca centralizada para que color, logo e identidad tengan una única fuente de verdad.
+Centralized brand infrastructure so that color, logo, and identity have a single source of truth.
 
-- **Paleta Nova Analytics** en `src/app/globals.css`: escala `--brand-50 … --brand-950` como variables CSS
-  (formato `R G B` para soportar alpha). Familia azul-violeta profundo ("Nova"). El acento primario es `600`
+- **Nova Analytics palette** in `src/app/globals.css`: scale `--brand-50 … --brand-950` as CSS variables
+  (`R G B` format to support alpha). Deep blue-violet family ("Nova"). The primary accent is `600`
   (#4F46E5), hover `700` (#4338CA).
-- **Token `brand`** en `tailwind.config.ts` (`theme.extend.colors.brand`), con formato
-  `rgb(var(--brand-N) / <alpha-value>)` para que funcionen las utilidades de opacidad (`brand-500/50`).
-  `DEFAULT` = 500. Ahora la UI usa `brand-*` en vez de `indigo-*` / `#6366F1`.
-- **Identidad centralizada** en `src/app/siteConfig.ts`: `name`, `tagline`, `description`, `url`,
-  `supportEmail` (hello@novaanalytics.io), `sampleUser` (admin@novaanalytics.io), y `baseLinks` extendido con
-  `signIn`/`signUp` (para M3/M4). Copy sin em-dash.
-- **Logo propio** en `src/components/brand/brand-logo.tsx`: `<BrandLogo>` (SRP), variantes `full` (icono +
-  wordmark) e `icon`. Mark original: cuadrado redondeado `brand-600` con tres barras ascendentes (lectura de
-  analytics). El favicon y el lockup comparten geometría.
-- **`src/app/not-found.tsx`** actualizado: usa `<BrandLogo>` y `text-brand-600/500` (antes `DatabaseLogo` +
+- **`brand` token** in `tailwind.config.ts` (`theme.extend.colors.brand`), with format
+  `rgb(var(--brand-N) / <alpha-value>)` so opacity utilities work (`brand-500/50`).
+  `DEFAULT` = 500. Now the UI uses `brand-*` instead of `indigo-*` / `#6366F1`.
+- **Centralized identity** in `src/app/siteConfig.ts`: `name`, `tagline`, `description`, `url`,
+  `supportEmail` (hello@novaanalytics.io), `sampleUser` (admin@novaanalytics.io), and `baseLinks` extended with
+  `signIn`/`signUp` (for M3/M4). Copy without em-dash.
+- **Own logo** in `src/components/brand/brand-logo.tsx`: `<BrandLogo>` (SRP), variants `full` (icon +
+  wordmark) and `icon`. Original mark: rounded square `brand-600` with three ascending bars (analytics
+  reading). The favicon and the lockup share geometry.
+- **`src/app/not-found.tsx`** updated: uses `<BrandLogo>` and `text-brand-600/500` (previously `DatabaseLogo` +
   `indigo`).
-- **`public/DatabaseLogo.tsx` eliminado** (cero referencias tras el cambio).
+- **`public/DatabaseLogo.tsx` removed** (zero references after the change).
 
-## Verificaciones de aceptación
+## Acceptance verifications
 
-| Check | Resultado |
+| Check | Result |
 | --- | --- |
-| `pnpm exec tsc --noEmit` | Limpio, sin errores |
-| `pnpm build` | Verde. 8 páginas estáticas |
-| Token `brand` compila y es usable | OK (`brand-600`, `brand-500/opacity`) |
-| `<BrandLogo>` renderiza (full + icon) | OK |
-| Cero referencias a `DatabaseLogo` | OK |
-| Paleta revisada por el owner (artifact) | Aprobada |
+| `pnpm exec tsc --noEmit` | Clean, no errors |
+| `pnpm build` | Green. 8 static pages |
+| `brand` token compiles and is usable | OK (`brand-600`, `brand-500/opacity`) |
+| `<BrandLogo>` renders (full + icon) | OK |
+| Zero references to `DatabaseLogo` | OK |
+| Palette reviewed by the owner (artifact) | Approved |
 
-## Notas / decisiones
+## Notes / decisions
 
-- La escala `brand` coincide con la familia `indigo` de Tailwind. Deliberado: transición accesible desde el
-  template, y como todo pasa por el token, cambiar los 11 hex en `globals.css` re-skinea todo el producto.
-- **Ajuste conocido para M2:** removí `externalLink` de siteConfig al reescribirlo, lo que rompía
-  `details/page.tsx` y `settings/page.tsx` (páginas paywall del template). Se restauró `externalLink.blocks`
-  apuntando temporalmente a `/overview`. En M2 se decide el destino real de esas páginas (rebrand o retirar) y
-  se limpia el `TremorPlaceholder`.
-- Las variables `brand` sirven igual en light y dark porque son las mismas para ambos (el contraste lo dan las
-  utilidades `dark:` de los componentes, no la escala). Si en M2/M4 hiciera falta, se pueden overridear bajo
+- The `brand` scale matches Tailwind's `indigo` family. Deliberate: an accessible transition from the
+  template, and since everything goes through the token, changing the 11 hex values in `globals.css` re-skins
+  the whole product.
+- **Known adjustment for M2:** I removed `externalLink` from siteConfig when rewriting it, which broke
+  `details/page.tsx` and `settings/page.tsx` (the template's paywall pages). `externalLink.blocks` was restored
+  pointing temporarily to `/overview`. In M2 the real destination of those pages is decided (rebrand or retire)
+  and the `TremorPlaceholder` is cleaned up.
+- The `brand` variables work the same in light and dark because they are identical for both (the contrast comes
+  from the components' `dark:` utilities, not the scale). If needed in M2/M4, they can be overridden under
   `.dark`.
 
-## Pendiente
+## Pending
 
-- M2 (whitelabel sweep): reemplazar `indigo-*` restantes por `brand-*` en el resto de componentes, metadata,
-  favicon/OG, y datos demo.
+- M2 (whitelabel sweep): replace the remaining `indigo-*` with `brand-*` in the rest of the components,
+  metadata, favicon/OG, and demo data.
