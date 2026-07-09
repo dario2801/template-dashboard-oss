@@ -1,4 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs"
+import { Analytics } from "@vercel/analytics/next"
 import type { Metadata } from "next"
 import { ThemeProvider } from "next-themes"
 import { Inter, Playfair_Display } from "next/font/google"
@@ -63,6 +64,7 @@ export default function RootLayout({
           <ThemeProvider defaultTheme="system" attribute="class">
             {children}
           </ThemeProvider>
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>

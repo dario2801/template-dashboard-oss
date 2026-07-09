@@ -14,7 +14,8 @@ const POINTS = [
 const line = POINTS.map(([x, y]) => `${x},${y}`).join(" ")
 const area = `${line} 468,120 0,120`
 
-// The gilded gradient is reserved for data visualization. This is its only use.
+// The gilded gradient marks a measured quantity. Used here and on the Stats
+// figures, and nowhere else. See `gildedFigure` in ./styles.
 export function RevenueChart() {
   return (
     <svg
@@ -36,13 +37,18 @@ export function RevenueChart() {
           <stop offset="100%" stopColor="rgb(174, 147, 87)" stopOpacity="0" />
         </linearGradient>
       </defs>
-      <polygon points={area} fill="url(#gilded-fill)" />
+      <polygon
+        points={area}
+        fill="url(#gilded-fill)"
+        className="animate-fadeIn motion-reduce:animate-none"
+      />
       <polyline
         points={line}
         stroke="url(#gilded-stroke)"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className="animate-drawLine motion-reduce:animate-none"
       />
     </svg>
   )

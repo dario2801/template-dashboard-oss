@@ -1,27 +1,11 @@
 "use client"
 
 import { Button } from "@/components/Button"
+import { useSessionIdentity } from "@/lib/useSessionIdentity"
 import { cx, focusRing } from "@/lib/utils"
-import { useUser } from "@clerk/nextjs"
 import { RiMore2Fill } from "@remixicon/react"
 
 import { DropdownUserProfile } from "./DropdownUserProfile"
-
-function initialsOf(name: string) {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? "")
-    .join("")
-}
-
-function useSessionIdentity() {
-  const { user, isLoaded } = useUser()
-  const email = user?.primaryEmailAddress?.emailAddress ?? ""
-  const name = user?.fullName?.trim() || email
-  return { isLoaded, name, initials: name ? initialsOf(name) : "" }
-}
 
 export const UserProfileDesktop = () => {
   const { isLoaded, name, initials } = useSessionIdentity()

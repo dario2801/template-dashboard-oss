@@ -112,7 +112,8 @@ Prefer clear names over explanatory comments.
 
 ## 7. Communication
 
-- Chat with Dario: Spanish. Code, comments, commits, README, PRs, logs: English.
+- Chat with Dario: Spanish. Everything written into the repo is English: code, comments, commit messages,
+  PR bodies, logs, and **every `.md`**, including `docs/` and the milestone records in `docs/completed/`.
 - Tone: precise, direct, no filler.
 - **UI copy avoids the em-dash (—).** Use a period, colon, or comma instead. (Applies to product copy only.)
 - When in doubt, ask. Before doing anything non-trivial, explain what and why. When done, summarize what
