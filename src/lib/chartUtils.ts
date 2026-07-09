@@ -3,11 +3,11 @@
 export type ColorUtility = "bg" | "stroke" | "fill" | "text"
 
 export const chartColors = {
-  indigo: {
-    bg: "bg-indigo-600 dark:bg-indigo-500",
-    stroke: "stroke-indigo-600 dark:stroke-indigo-500",
-    fill: "fill-indigo-600 dark:fill-indigo-500",
-    text: "text-indigo-600 dark:text-indigo-500",
+  brand: {
+    bg: "bg-brand-600 dark:bg-brand-500",
+    stroke: "stroke-brand-600 dark:stroke-brand-500",
+    fill: "fill-brand-600 dark:fill-brand-500",
+    text: "text-brand-600 dark:text-brand-500",
   },
   blue: {
     bg: "bg-blue-500",

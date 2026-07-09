@@ -1,34 +1,61 @@
-import { siteConfig } from "@/app/siteConfig"
-import { Button } from "@/components/Button"
-import { ArrowAnimated } from "@/components/ui/icons/ArrowAnimated"
-import { TremorPlaceholder } from "@/components/ui/icons/TremorPlaceholder"
+import { Badge } from "@/components/Badge"
+import { roles, users } from "@/data/data"
 
-export default function Example() {
+const roleLabel = (value: string) =>
+  roles.find((role) => role.value === value)?.label ?? value
+
+export default function Details() {
   return (
     <>
       <h1 className="text-lg font-semibold text-gray-900 sm:text-xl dark:text-gray-50">
         Details
       </h1>
-      <div className="mt-4 sm:mt-6 lg:mt-10">
-        <div className="my-40 flex w-full flex-col items-center justify-center">
-          <TremorPlaceholder className="size-20 shrink-0" aria-hidden="true" />
-          <h2 className="mt-6 text-lg font-semibold sm:text-xl">
-            Want to get the full content?
-          </h2>
-          <p className="mt-3 max-w-md text-center text-gray-500">
-            Dashboard template crafted with React, Next.js and Tailwind CSS.
-            Ideal for providing analytics to your users.
-          </p>
-          <Button className="group mt-6" variant="secondary" asChild>
-            <a href={siteConfig.externalLink.blocks}>
-              Get full template here
-              <ArrowAnimated
-                className="stroke-gray-900 dark:stroke-gray-50"
-                aria-hidden="true"
-              />
-            </a>
-          </Button>
-        </div>
+      <p className="mt-1 text-sm text-gray-500 dark:text-gray-500">
+        {users.length} members have access to this workspace.
+      </p>
+      <div className="mt-6 overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-800">
+        <table className="min-w-full text-sm">
+          <thead className="border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900/40">
+            <tr>
+              <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">
+                Member
+              </th>
+              <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">
+                Email
+              </th>
+              <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">
+                Role
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
+            {users.map((user) => (
+              <tr key={user.email}>
+                <td className="whitespace-nowrap px-4 py-3">
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="flex size-8 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-xs text-gray-700 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300"
+                      aria-hidden="true"
+                    >
+                      {user.initials}
+                    </span>
+                    <span className="font-medium text-gray-900 dark:text-gray-50">
+                      {user.name}
+                    </span>
+                  </div>
+                </td>
+                <td className="whitespace-nowrap px-4 py-3 text-gray-500 dark:text-gray-400">
+                  {user.email}
+                </td>
+                <td className="whitespace-nowrap px-4 py-3">
+                  <Badge variant={user.role === "admin" ? "default" : "neutral"}>
+                    {roleLabel(user.role)}
+                  </Badge>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
   )

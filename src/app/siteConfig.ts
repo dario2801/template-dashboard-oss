@@ -5,7 +5,11 @@ export const siteConfig = {
     "Nova Analytics is the data dashboard that turns your metrics into clear, actionable insight.",
   url: "https://nova-analytics.vercel.app",
   supportEmail: "hello@novaanalytics.io",
-  sampleUser: "admin@novaanalytics.io",
+  sampleUser: {
+    name: "Nova Admin",
+    initials: "NA",
+    email: "admin@novaanalytics.io",
+  },
   baseLinks: {
     home: "/",
     overview: "/overview",
@@ -13,9 +17,6 @@ export const siteConfig = {
     settings: "/settings",
     signIn: "/sign-in",
     signUp: "/sign-up",
-  },
-  externalLink: {
-    blocks: "/overview",
   },
 }
 

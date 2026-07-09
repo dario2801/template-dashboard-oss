@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/Select"
 
-export const databases: {
+export const workspaceTiers: {
   label: string
   value: string
   description: string
@@ -117,13 +117,13 @@ export function ModalAddWorkspace({
                   </Select>
                 </div>
                 <div className="col-span-full">
-                  <Label htmlFor="database-region" className="font-medium">
-                    Database region
+                  <Label htmlFor="workspace-region" className="font-medium">
+                    Workspace region
                   </Label>
                   <Select defaultValue="europe-west-01">
                     <SelectTrigger
-                      id="database-region"
-                      name="database-region"
+                      id="workspace-region"
+                      name="workspace-region"
                       className="mt-2"
                     >
                       <SelectValue />
@@ -143,26 +143,26 @@ export function ModalAddWorkspace({
                 </div>
               </div>
               <div className="mt-4">
-                <Label htmlFor="database" className="font-medium">
-                  Database configuration
+                <Label htmlFor="workspace-configuration" className="font-medium">
+                  Workspace configuration
                 </Label>
                 <RadioCardGroup
-                  defaultValue={databases[0].value}
+                  defaultValue={workspaceTiers[0].value}
                   className="mt-2 grid grid-cols-1 gap-4 text-sm md:grid-cols-2"
                 >
-                  {databases.map((database) => (
-                    <RadioCardItem key={database.value} value={database.value}>
+                  {workspaceTiers.map((tier) => (
+                    <RadioCardItem key={tier.value} value={tier.value}>
                       <div className="flex items-start gap-3">
                         <div>
-                          {database.isRecommended ? (
+                          {tier.isRecommended ? (
                             <div className="flex items-center gap-2">
                               <span className="leading-5">
-                                {database.label}
+                                {tier.label}
                               </span>
                               <Badge>Recommended</Badge>
                             </div>
                           ) : (
-                            <span>{database.label}</span>
+                            <span>{tier.label}</span>
                           )}
                           <p className="mt-1 text-xs text-gray-500">
                             1/8 vCPU, 1 GB RAM

@@ -16,11 +16,11 @@ import { ModalAddWorkspace } from "./ModalAddWorkspace"
 
 const workspaces = [
   {
-    value: "retail-analytics",
-    name: "Retail analytics",
-    initials: "RA",
+    value: "nova-analytics",
+    name: "Nova Analytics",
+    initials: "NA",
     role: "Member",
-    color: "bg-indigo-600 dark:bg-indigo-500",
+    color: "bg-brand-600 dark:bg-brand-500",
   },
   // Add more workspaces...
 ]
@@ -57,15 +57,15 @@ export const WorkspacesDropdownDesktop = () => {
             )}
           >
             <span
-              className="flex aspect-square size-8 items-center justify-center rounded bg-indigo-600 p-2 text-xs font-medium text-white dark:bg-indigo-500"
+              className="flex aspect-square size-8 items-center justify-center rounded bg-brand-600 p-2 text-xs font-medium text-white dark:bg-brand-500"
               aria-hidden="true"
             >
-              RA
+              NA
             </span>
             <div className="flex w-full items-center justify-between gap-x-4 truncate">
               <div className="truncate">
                 <p className="truncate whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-50">
-                  Retail analytics
+                  Nova Analytics
                 </p>
                 <p className="whitespace-nowrap text-left text-xs text-gray-700 dark:text-gray-300">
                   Member
@@ -156,11 +156,11 @@ export const WorkspacesDropdownMobile = () => {
           <button className="flex items-center gap-x-1.5 rounded-md p-2 hover:bg-gray-100 focus:outline-none hover:dark:bg-gray-900">
             <span
               className={cx(
-                "flex aspect-square size-7 items-center justify-center rounded bg-indigo-600 p-2 text-xs font-medium text-white dark:bg-indigo-500",
+                "flex aspect-square size-7 items-center justify-center rounded bg-brand-600 p-2 text-xs font-medium text-white dark:bg-brand-500",
               )}
               aria-hidden="true"
             >
-              RA
+              NA
             </span>
             <RiArrowRightSLine
               className="size-4 shrink-0 text-gray-500"
@@ -168,7 +168,7 @@ export const WorkspacesDropdownMobile = () => {
             />
             <div className="flex w-full items-center justify-between gap-x-3 truncate">
               <p className="truncate whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-50">
-                Retail analytics
+                Nova Analytics
               </p>
               <RiExpandUpDownLine
                 className="size-4 shrink-0 text-gray-500"

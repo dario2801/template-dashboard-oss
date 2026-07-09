@@ -14,6 +14,7 @@ import {
   DropdownMenuSubMenuTrigger,
   DropdownMenuTrigger,
 } from "@/components/Dropdown"
+import { siteConfig } from "@/app/siteConfig"
 import {
   RiArrowRightUpLine,
   RiComputerLine,
@@ -46,7 +47,7 @@ export function DropdownUserProfile({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
         <DropdownMenuContent align={align}>
-          <DropdownMenuLabel>emma.stone@acme.com</DropdownMenuLabel>
+          <DropdownMenuLabel>{siteConfig.sampleUser.email}</DropdownMenuLabel>
           <DropdownMenuGroup>
             <DropdownMenuSubMenu>
               <DropdownMenuSubMenuTrigger>Theme</DropdownMenuSubMenuTrigger>
