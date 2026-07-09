@@ -56,7 +56,9 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      {/* next-themes writes `class` and `color-scheme` onto <html> from a script
+          that runs before hydration, so the server markup can never match. */}
+      <html lang="en" suppressHydrationWarning>
         <body
           className={`${inter.className} ${inter.variable} ${playfair.variable} overflow-y-scroll scroll-auto antialiased selection:bg-brand-100 selection:text-brand-700 dark:bg-gray-950`}
           suppressHydrationWarning

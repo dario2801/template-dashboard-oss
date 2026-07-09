@@ -40,8 +40,12 @@ export const hasErrorInput = [
 
 // Number formatter function
 
+// "us" is not a language tag, so Intl ignores it and falls back to the runtime's
+// default locale. That makes the output depend on where the code runs: the server
+// formats with its own locale and the browser with the visitor's, which desyncs
+// the two renders and breaks hydration. Every formatter here pins "en-US".
 export const usNumberformatter = (number: number, decimals = 0) =>
-  Intl.NumberFormat("us", {
+  Intl.NumberFormat("en-US", {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   })
