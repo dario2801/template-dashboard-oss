@@ -1,72 +1,35 @@
-<br />
-<div align="center">
+# Nova Analytics
 
-<h1 align="center">
-  Tremor – Dashboard Template
-</h1>
+> Turn raw data into clear decisions.
 
-<h3 align="center">
-  <a href="https://dashboard-oss.tremor.so/overview">Preview OSS version</a> |
-  <a href="https://dashboard.tremor.so/overview">Preview full version</a> |
-  <a href="https://blocks.tremor.so/templates">Get full version</a>
-</h3>
+Nova Analytics is a whitelabel data dashboard that turns your metrics into clear, actionable
+insight. It ships with a public landing page, authentication, and a multi-view analytics
+dashboard, and it runs on mock data with no database required.
 
-`Dashboard` is a SaaS application template from [Tremor](https://tremor.so). It's built
-using [`Tremor Raw`](https://raw.tremor.so/docs/getting-started/installation)
-and [Next.js](https://nextjs.org).
+## Stack
 
-<br />
-
-[![Tremor Banner](public/og_github.jpg)](https://dashboard-oss.tremor.so/overview)
-
-</div>
-
-<br />
+- [Next.js 14](https://nextjs.org) (App Router)
+- [React 18](https://react.dev) + [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS 3](https://tailwindcss.com)
+- [Tremor Raw](https://raw.tremor.so) components
+- [Radix UI](https://www.radix-ui.com) primitives
+- [Recharts](https://recharts.org)
 
 ## Getting started
 
-1. Install the dependencies. We recommend using pnpm. If you want to use `npm`,
-   just replace `pnpm` with `npm`.
+This project uses [pnpm](https://pnpm.io).
 
 ```bash
-pnpm install
+pnpm install   # install dependencies
+pnpm dev       # start the development server
+pnpm build     # create a production build
+pnpm lint      # run the linter
 ```
 
-2. Then, start the development server:
-
-```bash
-pnpm run dev
-```
-
-3. Visit [http://localhost:3000](http://localhost:3000) in your browser to view
-   the template.
-
-## Notes
-
-This project uses
-[`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to
-automatically optimize and load Inter, a custom Google Font.
-
-This project uses
-[`Tremor Raw`](https://raw.tremor.so/docs/getting-started/installation)
-components for the UI.
+Then visit [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## License
 
-This site template is licensed under the
-[Apache 2.0 License](https://github.com/tremorlabs/tremor-dashboard-template?tab=License-1-ov-file#readme).
-
-## Learn more
-
-For a deeper understanding of the technologies used in this template, check out
-the resources listed below:
-
-- [Tremor Raw](https://raw.tremor.so) - Tremor Raw documentation
-- [Tailwind CSS](https://tailwindcss.com) - A utility-first CSS framework
-- [Next.js](https://nextjs.org/docs) - Next.js documentation
-- [Radix UI](https://www.radix-ui.com) - Radix UI Website
-- [Recharts](https://recharts.org) - Recharts documentation and website
-
----
-
-Copyright © 2024 Tremor Labs, Inc. All rights reserved.
+This project is derived from an Apache 2.0 licensed template
+([tremorlabs/template-dashboard-oss](https://github.com/tremorlabs/template-dashboard-oss)).
+The upstream `LICENSE.md` is retained in this repository as required by the license.

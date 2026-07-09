@@ -94,46 +94,46 @@ export const users: {
   role: string
 }[] = [
   {
-    name: "Emma Stone",
-    initials: "ES",
-    email: "a.stone@gmail.com",
-    role: "viewer",
-  },
-  {
-    name: "Alissia McCalister",
-    initials: "AM",
-    email: "a.stone@gmail.com",
-    role: "viewer",
-  },
-  {
-    name: "Emily Luisa Bernacle",
-    initials: "EB",
-    email: "e.luis.bernacle@gmail.com",
-    role: "member",
-  },
-  {
-    name: "Aaron Wave",
-    initials: "AW",
-    email: "a.flow@acme.com",
-    role: "contributor",
-  },
-  {
-    name: "Thomas Palstein",
-    initials: "TP",
-    email: "t.palstein@acme.com",
-    role: "viewer",
-  },
-  {
-    name: "Sarah Johnson",
-    initials: "SJ",
-    email: "s.johnson@gmail.com",
+    name: "Nova Admin",
+    initials: "NA",
+    email: "admin@novaanalytics.io",
     role: "admin",
   },
   {
-    name: "Megan Katherina Brown",
-    initials: "MB",
-    email: "m.lovelybrown@gmail.com",
+    name: "Marcus Reed",
+    initials: "MR",
+    email: "marcus.reed@novaanalytics.io",
+    role: "member",
+  },
+  {
+    name: "Priya Nair",
+    initials: "PN",
+    email: "priya.nair@novaanalytics.io",
+    role: "viewer",
+  },
+  {
+    name: "Diego Alvarez",
+    initials: "DA",
+    email: "diego.alvarez@novaanalytics.io",
     role: "contributor",
+  },
+  {
+    name: "Hannah Cole",
+    initials: "HC",
+    email: "hannah.cole@novaanalytics.io",
+    role: "member",
+  },
+  {
+    name: "Kenji Watanabe",
+    initials: "KW",
+    email: "kenji.watanabe@novaanalytics.io",
+    role: "admin",
+  },
+  {
+    name: "Sofia Moreau",
+    initials: "SM",
+    email: "sofia.moreau@novaanalytics.io",
+    role: "viewer",
   },
 ]
 
@@ -144,14 +144,14 @@ export const invitedUsers: {
   expires: number
 }[] = [
   {
-    initials: "LP",
-    email: "lydia.posh@gmail.com",
+    initials: "LF",
+    email: "lena.fischer@novaanalytics.io",
     role: "viewer",
     expires: 12,
   },
   {
-    initials: "AW",
-    email: "awidburg@bluewin.ch",
+    initials: "OH",
+    email: "omar.haddad@novaanalytics.io",
     role: "viewer",
     expires: 8,
   },

@@ -13,17 +13,17 @@ import { Sidebar } from "@/components/ui/navigation/sidebar"
 import { siteConfig } from "./siteConfig"
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://yoururl.com"),
+  metadataBase: new URL(siteConfig.url),
   title: siteConfig.name,
   description: siteConfig.description,
-  keywords: [],
+  keywords: ["analytics", "dashboard", "metrics", "data", "insights"],
   authors: [
     {
-      name: "yourname",
-      url: "",
+      name: siteConfig.name,
+      url: siteConfig.url,
     },
   ],
-  creator: "yourname",
+  creator: siteConfig.name,
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -34,11 +34,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tremor OSS Dashboard",
-    creator: "@tremorlabs",
-  },
-  icons: {
-    icon: "/favicon.ico",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    creator: "@novaanalytics",
   },
 }
 
@@ -50,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} overflow-y-scroll scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-gray-950`}
+        className={`${inter.className} overflow-y-scroll scroll-auto antialiased selection:bg-brand-100 selection:text-brand-700 dark:bg-gray-950`}
         suppressHydrationWarning
       >
         <div className="mx-auto max-w-screen-2xl">
