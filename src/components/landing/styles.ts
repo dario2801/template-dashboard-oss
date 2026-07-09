@@ -12,4 +12,9 @@ export const tagPill =
 export const eyebrow =
   "text-[13px] font-semibold tracking-[-0.02em] text-copper"
 
+// Gold marks a measured quantity, and only where the page makes a quantitative
+// claim to the reader: the revenue line and the figures in Stats. The sample
+// dashboard's own numbers stay white so the card reads as product, not marketing.
+export const gildedFigure = "bg-gilded-text bg-clip-text text-transparent"
+
 export const sectionShell = "mx-auto w-full max-w-page px-6"

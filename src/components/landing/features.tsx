@@ -28,22 +28,26 @@ export function Features() {
         </h2>
       </div>
 
-      <div className="mt-16 grid gap-x-4 gap-y-10 md:grid-cols-3">
+      <dl className="mt-16 border-t border-graphite">
         {features.map((feature) => (
-          <article
+          <div
             key={feature.title}
-            className="rounded-[10px] border border-graphite p-6"
+            className="grid gap-x-8 gap-y-2 border-b border-graphite py-8 md:grid-cols-12 md:py-10"
           >
-            <p className={eyebrow}>{feature.category}</p>
-            <h3 className="mt-4 text-xl font-medium leading-[1.38] tracking-[-0.02em] text-paper-white">
-              {feature.title}
-            </h3>
-            <p className="mt-3 text-base leading-[1.5] text-mist">
-              {feature.body}
-            </p>
-          </article>
+            <dt className={`${eyebrow} md:col-span-3 md:pt-1.5`}>
+              {feature.category}
+            </dt>
+            <dd className="md:col-span-9">
+              <h3 className="text-xl font-medium leading-[1.38] tracking-[-0.02em] text-paper-white">
+                {feature.title}
+              </h3>
+              <p className="mt-3 max-w-xl text-base leading-[1.5] text-mist">
+                {feature.body}
+              </p>
+            </dd>
+          </div>
         ))}
-      </div>
+      </dl>
     </section>
   )
 }
