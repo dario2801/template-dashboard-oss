@@ -1,15 +1,21 @@
 export const siteConfig = {
-  name: "Dashboard",
-  url: "https://dashboard.tremor.so",
-  description: "The only dashboard you will ever need.",
+  name: "Nova Analytics",
+  tagline: "Turn raw data into clear decisions.",
+  description:
+    "Nova Analytics is the data dashboard that turns your metrics into clear, actionable insight.",
+  url: "https://nova-analytics.vercel.app",
+  supportEmail: "hello@novaanalytics.io",
+  sampleUser: "admin@novaanalytics.io",
   baseLinks: {
     home: "/",
     overview: "/overview",
     details: "/details",
     settings: "/settings",
+    signIn: "/sign-in",
+    signUp: "/sign-up",
   },
   externalLink: {
-    blocks: "https://blocks.tremor.so/templates#dashboard",
+    blocks: "/overview",
   },
 }
 
