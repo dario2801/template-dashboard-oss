@@ -20,6 +20,32 @@ const config: Config = {
           950: "rgb(var(--brand-950) / <alpha-value>)",
           DEFAULT: "rgb(var(--brand-600) / <alpha-value>)",
         },
+        // Editorial dark surface stack. Scoped to the public marketing and auth
+        // pages, which render dark regardless of the dashboard theme.
+        obsidian: "#08080a",
+        onyx: "#040406",
+        carbon: "#121317",
+        graphite: "#1c1d22",
+        slate: "#2e3038",
+        smoke: "#464853",
+        ash: "#5e616e",
+        steel: "#777a88",
+        fog: "#9194a1",
+        mist: "#acafb9",
+        silver: "#c7c9d1",
+        bone: "#e2e3e9",
+        "paper-white": "#ffffff",
+        copper: "#cc9166",
+      },
+      fontFamily: {
+        display: ["var(--font-playfair)", "Georgia", "serif"],
+      },
+      backgroundImage: {
+        gilded:
+          "linear-gradient(103deg, rgb(174, 147, 87), rgb(255, 240, 204) 40%, rgb(174, 147, 87) 70%, rgba(189, 157, 79, 0))",
+      },
+      maxWidth: {
+        page: "1216px",
       },
       keyframes: {
         hide: {

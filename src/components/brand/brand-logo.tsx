@@ -51,15 +51,26 @@ function BrandMark(props: SVGProps<SVGSVGElement>) {
   )
 }
 
-export function BrandLogo({ variant = "full", className, ...props }: BrandLogoProps) {
+export function BrandLogo({
+  variant = "full",
+  className,
+  ...props
+}: BrandLogoProps) {
   if (variant === "icon") {
     return <BrandMark className={cx("size-8", className)} {...props} />
   }
 
+  // The wordmark color lives on the wrapper so a caller's className can override it
+  // through twMerge. On the inner span it would win by element specificity instead.
   return (
-    <span className={cx("inline-flex items-center gap-2", className)}>
+    <span
+      className={cx(
+        "inline-flex items-center gap-2 text-gray-900 dark:text-gray-50",
+        className,
+      )}
+    >
       <BrandMark className="size-8 shrink-0" {...props} />
-      <span className="text-lg font-semibold tracking-tight text-gray-900 dark:text-gray-50">
+      <span className="text-lg font-semibold tracking-tight">
         {siteConfig.name}
       </span>
     </span>

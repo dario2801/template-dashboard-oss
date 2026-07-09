@@ -1,6 +1,7 @@
+import { ClerkProvider } from "@clerk/nextjs"
 import type { Metadata } from "next"
 import { ThemeProvider } from "next-themes"
-import { Inter } from "next/font/google"
+import { Inter, Playfair_Display } from "next/font/google"
 import "./globals.css"
 
 const inter = Inter({
@@ -9,7 +10,14 @@ const inter = Inter({
   variable: "--font-inter",
 })
 
-import { Sidebar } from "@/components/ui/navigation/sidebar"
+// Stands in for Ivy Presto, the commercial didone the brand reference specifies.
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500"],
+  variable: "--font-playfair",
+})
+
 import { siteConfig } from "./siteConfig"
 
 export const metadata: Metadata = {
@@ -46,18 +54,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.className} overflow-y-scroll scroll-auto antialiased selection:bg-brand-100 selection:text-brand-700 dark:bg-gray-950`}
-        suppressHydrationWarning
-      >
-        <div className="mx-auto max-w-screen-2xl">
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${inter.className} ${inter.variable} ${playfair.variable} overflow-y-scroll scroll-auto antialiased selection:bg-brand-100 selection:text-brand-700 dark:bg-gray-950`}
+          suppressHydrationWarning
+        >
           <ThemeProvider defaultTheme="system" attribute="class">
-            <Sidebar />
-            <main className="lg:pl-72">{children}</main>
+            {children}
           </ThemeProvider>
-        </div>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
