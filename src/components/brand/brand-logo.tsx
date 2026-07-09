@@ -57,7 +57,7 @@ export function BrandLogo({ variant = "full", className, ...props }: BrandLogoPr
   }
 
   return (
-    <span className="inline-flex items-center gap-2">
+    <span className={cx("inline-flex items-center gap-2", className)}>
       <BrandMark className="size-8 shrink-0" {...props} />
       <span className="text-lg font-semibold tracking-tight text-gray-900 dark:text-gray-50">
         {siteConfig.name}
