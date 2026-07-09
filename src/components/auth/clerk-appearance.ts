@@ -9,7 +9,10 @@ export const clerkAppearance = {
     colorInputBackground: "#121317",
     colorInputText: "#e2e3e9",
     colorDanger: "#cc9166",
-    borderRadius: "9999px",
+    // Clerk derives every element's radius from this one, the card included, and
+    // injects it inline so no Tailwind class can override it. A pill value here
+    // rounds the card into an ellipse. Pills are opted into per element below.
+    borderRadius: "10px",
     fontFamily: "var(--font-inter)",
   },
   elements: {
