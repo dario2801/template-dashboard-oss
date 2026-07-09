@@ -3,7 +3,7 @@ export const siteConfig = {
   tagline: "Turn raw data into clear decisions.",
   description:
     "Nova Analytics is the data dashboard that turns your metrics into clear, actionable insight.",
-  url: "https://nova-analytics.vercel.app",
+  url: "https://template-dashboard-oss-rose.vercel.app",
   supportEmail: "hello@novaanalytics.io",
   sampleUser: {
     name: "Nova Admin",
