@@ -3,8 +3,14 @@
 import { siteConfig } from "@/app/siteConfig"
 import { Input } from "@/components/Input"
 import { Label } from "@/components/Label"
+import { useSessionIdentity } from "@/lib/useSessionIdentity"
 import { cx, focusRing } from "@/lib/utils"
 import { useState } from "react"
+
+const workspaceInitials = siteConfig.name
+  .split(" ")
+  .map((word) => word[0])
+  .join("")
 
 const notificationSettings = [
   {
@@ -76,7 +82,7 @@ function NotificationToggle({
 }
 
 export default function Settings() {
-  const { name, email, initials } = siteConfig.sampleUser
+  const { isLoaded, name, email, initials } = useSessionIdentity()
   return (
     <>
       <h1 className="text-lg font-semibold text-gray-900 sm:text-xl dark:text-gray-50">
@@ -99,45 +105,56 @@ export default function Settings() {
             </p>
           </div>
           <div className="md:col-span-2">
-            <div className="flex items-center gap-4">
-              <span
-                className="flex size-14 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-700 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300"
+            {isLoaded ? (
+              <>
+                <div className="flex items-center gap-4">
+                  <span
+                    className="flex size-14 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-700 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300"
+                    aria-hidden="true"
+                  >
+                    {initials}
+                  </span>
+                  <div>
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-50">
+                      {name}
+                    </p>
+                    <p className="text-sm text-gray-500 dark:text-gray-500">
+                      {email}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div>
+                    <Label htmlFor="full-name">Full name</Label>
+                    {/* Controlled, because an uncontrolled defaultValue would keep
+                        the empty string it mounted with before Clerk resolved. */}
+                    <Input
+                      id="full-name"
+                      name="full-name"
+                      value={name}
+                      readOnly
+                      className="mt-2"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={email}
+                      readOnly
+                      className="mt-2"
+                    />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div
+                className="h-14 w-full animate-pulse rounded-lg bg-gray-100 dark:bg-gray-900"
                 aria-hidden="true"
-              >
-                {initials}
-              </span>
-              <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-gray-50">
-                  {name}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-500">
-                  {email}
-                </p>
-              </div>
-            </div>
-            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div>
-                <Label htmlFor="full-name">Full name</Label>
-                <Input
-                  id="full-name"
-                  name="full-name"
-                  defaultValue={name}
-                  readOnly
-                  className="mt-2"
-                />
-              </div>
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  defaultValue={email}
-                  readOnly
-                  className="mt-2"
-                />
-              </div>
-            </div>
+              />
+            )}
           </div>
         </section>
 
@@ -186,7 +203,7 @@ export default function Settings() {
                 className="flex aspect-square size-10 items-center justify-center rounded bg-brand-600 text-xs font-medium text-white dark:bg-brand-500"
                 aria-hidden="true"
               >
-                {initials}
+                {workspaceInitials}
               </span>
               <div>
                 <p className="text-sm font-medium text-gray-900 dark:text-gray-50">
